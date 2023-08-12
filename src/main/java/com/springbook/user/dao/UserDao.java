@@ -6,6 +6,12 @@ import java.sql.*;
 
 public class UserDao {
 
+    private final SimpleConnectionMaker simpleConnectionMaker;
+
+    public UserDao() {
+        simpleConnectionMaker = new SimpleConnectionMaker();
+    }
+
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         UserDao dao = new UserDao();
 
@@ -26,7 +32,7 @@ public class UserDao {
     }
 
     public void add(User user) throws SQLException, ClassNotFoundException {
-        Connection c = getConnection();
+        Connection c = simpleConnectionMaker.makeNewConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id, name, password) values (?,?,?)");
@@ -42,7 +48,7 @@ public class UserDao {
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection c = getConnection();
+        Connection c = simpleConnectionMaker.makeNewConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "select * from users where id = ?");
@@ -56,17 +62,10 @@ public class UserDao {
         user.setPassword(rs.getString("password"));
 
         rs.close();
-        ps.close();;
+        ps.close();
         c.close();
 
         return user;
 
-    }
-
-    private static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.h2.Driver");
-        Connection c = DriverManager.getConnection(
-                "jdbc:h2:tcp://localhost/~/test", "sa", "");
-        return c;
     }
 }
