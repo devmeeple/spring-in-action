@@ -1,13 +1,13 @@
-package com.springbook;
+package tobyspring.hellospring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TobySpringApplication {
+public class HellospringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TobySpringApplication.class, args);
+        SpringApplication.run(HellospringApplication.class, args);
     }
 
 }
