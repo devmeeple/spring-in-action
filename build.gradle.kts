@@ -19,21 +19,24 @@ repositories {
 }
 
 dependencies {
+    // Core: Spring Boot
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // Spring Web
+    // Web: Spring Web
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    // Database
+    // JPA: Spring Data JPA
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // Database: H2(in-memory testing), MySQL(production)
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
 
-    // JPA
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // Test: JUnit5
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 kotlin {
