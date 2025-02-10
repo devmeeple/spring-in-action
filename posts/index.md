@@ -58,3 +58,13 @@
 - Servlet
 - HTTP: cookies, referer, uri, user agent
 - Null Safety
+
+## 2.6 엔티티 개발 - 연관관계 있음
+
+> 29, 강의자료 Experience 오탈자 문의 필요(startYear, startMonth),
+
+- `@OneToMany`, `@ManyToOne`
+- `mutableList`
+- 연관관계, 단방향
+- 트랜잭션 스크립트
+- [Null Safety](https://kotlinlang.org/docs/null-safety.html): `null` 체크, 현재 코드가 최선인가?
