@@ -18,8 +18,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // 스프링 부트 라이브러리(톰캣 + 스프링 웹 MVC)
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // 타임리프 템플릿 엔진(View)
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // 테스트 라이브러리(JUnit + Mockito + AssertJ)
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
