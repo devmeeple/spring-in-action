@@ -1,8 +1,7 @@
 package com.devmeeple.spring;
 
-import com.devmeeple.spring.repository.JdbcMemberRepository;
+import com.devmeeple.spring.repository.JdbcTemplateMemberRepository;
 import com.devmeeple.spring.repository.MemberRepository;
-import com.devmeeple.spring.repository.MemoryMemberRepository;
 import com.devmeeple.spring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +27,7 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository() {
 //        return new MemoryMemberRepository();
-        return new JdbcMemberRepository(dataSource);
+//        return new JdbcMemberRepository(dataSource);
+        return new JdbcTemplateMemberRepository(dataSource);
     }
 }
