@@ -1,4 +1,4 @@
-package com.devmeeple.spring.controller;
+package com.devmeeple.spring.start.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,7 @@
-package com.devmeeple.spring.service;
+package com.devmeeple.spring.start.service;
 
-import com.devmeeple.spring.domain.Member;
-import com.devmeeple.spring.repository.MemberRepository;
+import com.devmeeple.spring.start.domain.Member;
+import com.devmeeple.spring.start.repository.MemberRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

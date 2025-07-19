@@ -1,4 +1,4 @@
-package com.devmeeple.spring.domain;
+package com.devmeeple.spring.start.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

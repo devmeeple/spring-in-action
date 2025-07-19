@@ -1,7 +1,8 @@
 package com.devmeeple.spring.service;
 
-import com.devmeeple.spring.domain.Member;
-import com.devmeeple.spring.repository.MemberRepository;
+import com.devmeeple.spring.start.domain.Member;
+import com.devmeeple.spring.start.repository.MemberRepository;
+import com.devmeeple.spring.start.service.MemberService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

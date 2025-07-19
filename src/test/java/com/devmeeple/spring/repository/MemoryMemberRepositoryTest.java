@@ -1,6 +1,7 @@
 package com.devmeeple.spring.repository;
 
-import com.devmeeple.spring.domain.Member;
+import com.devmeeple.spring.start.domain.Member;
+import com.devmeeple.spring.start.repository.MemoryMemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

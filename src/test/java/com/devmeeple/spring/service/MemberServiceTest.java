@@ -1,7 +1,8 @@
 package com.devmeeple.spring.service;
 
-import com.devmeeple.spring.domain.Member;
-import com.devmeeple.spring.repository.MemoryMemberRepository;
+import com.devmeeple.spring.start.domain.Member;
+import com.devmeeple.spring.start.repository.MemoryMemberRepository;
+import com.devmeeple.spring.start.service.MemberService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

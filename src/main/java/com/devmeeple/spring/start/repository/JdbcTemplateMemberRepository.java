@@ -1,6 +1,6 @@
-package com.devmeeple.spring.repository;
+package com.devmeeple.spring.start.repository;
 
-import com.devmeeple.spring.domain.Member;
+import com.devmeeple.spring.start.domain.Member;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;

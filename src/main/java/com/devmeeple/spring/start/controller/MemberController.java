@@ -1,7 +1,7 @@
-package com.devmeeple.spring.controller;
+package com.devmeeple.spring.start.controller;
 
-import com.devmeeple.spring.domain.Member;
-import com.devmeeple.spring.service.MemberService;
+import com.devmeeple.spring.start.domain.Member;
+import com.devmeeple.spring.start.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

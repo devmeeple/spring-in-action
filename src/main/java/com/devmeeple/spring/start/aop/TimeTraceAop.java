@@ -1,4 +1,4 @@
-package com.devmeeple.spring.aop;
+package com.devmeeple.spring.start.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
