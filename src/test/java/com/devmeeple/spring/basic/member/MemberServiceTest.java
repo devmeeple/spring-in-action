@@ -1,5 +1,7 @@
 package com.devmeeple.spring.basic.member;
 
+import com.devmeeple.spring.basic.AppConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MemberServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
+    MemberService memberService;
+
+    @BeforeEach
+    void beforeEach() {
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+    }
 
     @DisplayName("회원가입에 성공한다.")
     @Test

@@ -1,9 +1,10 @@
 package com.devmeeple.spring.basic.order;
 
+import com.devmeeple.spring.basic.AppConfig;
 import com.devmeeple.spring.basic.member.Grade;
 import com.devmeeple.spring.basic.member.Member;
 import com.devmeeple.spring.basic.member.MemberService;
-import com.devmeeple.spring.basic.member.MemberServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +12,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class OrderServiceTest {
 
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+    MemberService memberService;
+    OrderService orderService;
+
+    @BeforeEach
+    void beforeEach() {
+        AppConfig appConfig = new AppConfig();
+        memberService = appConfig.memberService();
+        orderService = appConfig.orderService();
+    }
 
     @DisplayName("주문을 생성한다.")
     @Test
