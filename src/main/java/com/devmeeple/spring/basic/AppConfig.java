@@ -2,6 +2,7 @@ package com.devmeeple.spring.basic;
 
 import com.devmeeple.spring.basic.discount.DiscountPolicy;
 import com.devmeeple.spring.basic.discount.FixDiscountPolicy;
+import com.devmeeple.spring.basic.discount.RateDiscountPolicy;
 import com.devmeeple.spring.basic.member.MemberRepository;
 import com.devmeeple.spring.basic.member.MemberService;
 import com.devmeeple.spring.basic.member.MemberServiceImpl;
@@ -26,6 +27,7 @@ public class AppConfig {
     }
 
     public DiscountPolicy discountPolicy() {
-        return new FixDiscountPolicy();
+//        return new FixDiscountPolicy();
+        return new RateDiscountPolicy();
     }
 }
