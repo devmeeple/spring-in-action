@@ -55,3 +55,29 @@ class PostControllerTest {
 ### 참고 자료
 
 - [MDN Web Docs 'HTTP request methods'](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods)
+
+## 데이터 검증-1
+
+**Validation**
+
+- 데이터 검증은 실수, 누락, 악의적인 입력을 방지하고 데이터베이스에 의도치 않은 값 저장을 막기 위해 필요하다.
+
+```groovy 
+implementation("org.springframework.boot:spring-boot-starter-validation") 
+``` 
+
+- Spring에서 데이터 검증을 사용할 때는 의존성을 추가해야 한다.
+- 검증에는 Java Bean Validation(Jakarta Validation) API를 사용한다. API는 표준 어노테이션(`@NotNull` 등)과 인터페이스가 정의되어 있다.
+- Hibernate Validator는 표준을 참고하여 실제 검증 로직을 구현했다.
+- Spring Boot Starter는 Jakarta Validation API와 Hibernate Validator를 한 번에 포함해 주는 편의 패키지다. 별도 설정 없이 즉시 검증기능을 사용할 수 있게 지원한다.
+
+
+**JsonPath**
+
+- JsonPath는 JSON을 검증하도록 구현된 표현식이다.
+- Spring의 `jsonPath()` 메서드는 내부적으로 [Jayway JsonPath](https://github.com/json-path/JsonPath) 라이브러리를 사용한다.
+- MockMvc는 가짜 HTTP 요청을 보내는 도구이며 JsonPath는 응답 JSON을 검증하는 도구다.
+
+### 참고 자료
+
+- [Java Bean Validation](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html)
