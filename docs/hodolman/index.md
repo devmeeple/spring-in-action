@@ -93,3 +93,9 @@ implementation("org.springframework.boot:spring-boot-starter-validation")
 ### 참고 자료
 
 - [Controller Advice](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-advice.html)
+
+## 작성글 저장 1 - 게시글 저장 구현
+
+### @Lob
+
+- 게시글의 본문의 길이는 가변적이다. 따라서 JPA에서 가변 길이 데이터 유형을 나타내는 `@Lob`를 사용한다.

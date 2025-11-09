@@ -1,21 +1,35 @@
 package io.github.devmeeple.contorller;
 
+import io.github.devmeeple.domain.Post;
+import io.github.devmeeple.repository.PostRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+@AutoConfigureMockMvc
+@SpringBootTest
 class PostControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @BeforeEach
+    void clean() {
+        postRepository.deleteAll();
+    }
 
     @DisplayName("/posts 요청시 Hello World를 출력한다.")
     @Test
@@ -43,4 +57,20 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    @DisplayName("/posts 요청시 DB에 값이 저장된다.")
+    @Test
+    void test3() throws Exception {
+        mockMvc.perform(post("/posts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\": \"제목입니다.\", \"content\": \"내용입니다.\"}")
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        assertThat(postRepository.count()).isEqualTo(1L);
+
+        Post post = postRepository.findAll().get(0);
+        assertThat(post.getTitle()).isEqualTo("제목입니다.");
+        assertThat(post.getContent()).isEqualTo("내용입니다.");
+    }
 }
