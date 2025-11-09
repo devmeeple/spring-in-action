@@ -71,7 +71,6 @@ implementation("org.springframework.boot:spring-boot-starter-validation")
 - Hibernate Validator는 표준을 참고하여 실제 검증 로직을 구현했다.
 - Spring Boot Starter는 Jakarta Validation API와 Hibernate Validator를 한 번에 포함해 주는 편의 패키지다. 별도 설정 없이 즉시 검증기능을 사용할 수 있게 지원한다.
 
-
 **JsonPath**
 
 - JsonPath는 JSON을 검증하도록 구현된 표현식이다.
@@ -81,3 +80,16 @@ implementation("org.springframework.boot:spring-boot-starter-validation")
 ### 참고 자료
 
 - [Java Bean Validation](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html)
+
+## 데이터 검증-2
+
+### @ControllerAdvice
+
+- `@ExceptionHandler`와 `@ControllerAdvice`는 Spring MVC에서 예외를 공통적으로 처리하는 핵심 도구다.
+- `@ExceptionHandler`를 사용하면 컨트롤러에서 예외를 처리할 수 있다. 하지만 정상 코드와 예외 처리 코드가 분리되지 않는다.
+- `@ControllerAdivce`를 사용하면 위 문제를 해결할 수 있다.
+- `@ControllerAdivce`는 대상을 지정하지 않으면 모든 컨트롤러에 적용된다. 따라서 전역 예외 처리(Global Exception Handler)에 적합하다.
+
+### 참고 자료
+
+- [Controller Advice](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-advice.html)
