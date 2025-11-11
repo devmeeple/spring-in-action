@@ -183,3 +183,8 @@ public class User {
 - [정적 팩토리 메서드(static factory method)](https://johngrib.github.io/wiki/pattern/static-factory-method/)
 - [Constructor vs Static Factory vs Builder Pattern: When and What to Use in Java](https://medium.com/@kariapratham/constructor-vs-static-factory-vs-builder-pattern-when-and-what-to-use-in-java-5f1ec79d3cc5)
 - [Constructor vs. Builder: Making the Right Choice for Your Project](https://www.dhiwise.com/blog/design-converter/constructor-vs-builder-making-the-right-choice-for-your-project)
+
+## 게시글 조회 1 - 단건조회
+
+- @PathVariable
+- Optional
