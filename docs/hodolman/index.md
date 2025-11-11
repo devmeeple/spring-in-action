@@ -107,6 +107,9 @@ implementation("org.springframework.boot:spring-boot-starter-validation")
 - Jackson은 JVM 진영에서 가장 많이 사용하는 JSON 직렬화/역질렬화 라이브러리다.
 - 객체를 JSON(String)으로 바꾸거나, 반대로 JSON을 객체로 바꿔주는 역할이다.
 - Spring은 Jackson 라이브러리를 기본으로 사용하여 별도의 설정 없이 JSON으로 자동 처리한다.
+- Jackson은 프로퍼티 접근(property access)를 기본으로 사용한다.
+  - 직렬화(응답): getter 메서드를 기준으로 JSON 필드 만듬
+  - 역직렬화(요청): setter 메서드 또는 생성자를 기준으로 필드 값을 할당
 
 ### ObjectMapper
 
@@ -188,3 +191,15 @@ public class User {
 
 - @PathVariable
 - Optional
+
+## 게시글 조회 2 - 응답 클래스 분리
+
+### API 응답 클래스
+
+- 응답 클래스를 사용하지 않고 도메인 클래스를 그대로 사용할 때는 API 응답의 일관성이 없었다.
+- 가장 큰 단점은 서비스 정책을 반영하기 어렵다.
+- API 응답 클래스를 도입하며 일관성을 확보하고 서비스 정책을 쉽게 반영할 수 있다.
+
+### DTO <-> Entity 변환
+
+- 명확한 정답이 없다. 요구사항에 따라 다르다. 변환을 담당하는 Mapper를 도입하면 좋지 않을까?
