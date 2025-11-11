@@ -1,7 +1,7 @@
 package io.github.devmeeple.contorller;
 
-import io.github.devmeeple.domain.Post;
 import io.github.devmeeple.request.PostCreate;
+import io.github.devmeeple.response.PostResponse;
 import io.github.devmeeple.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{postId}")
-    public Post get(@PathVariable(name = "postId") Long id) {
+    public PostResponse get(@PathVariable(name = "postId") Long id) {
         return postService.get(id);
     }
 }

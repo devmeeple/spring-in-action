@@ -3,6 +3,7 @@ package io.github.devmeeple.service;
 import io.github.devmeeple.domain.Post;
 import io.github.devmeeple.repository.PostRepository;
 import io.github.devmeeple.request.PostCreate;
+import io.github.devmeeple.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ class PostServiceTest {
                 .build();
         postRepository.save(post);
 
-        Post result = postService.get(post.getId());
+        PostResponse result = postService.get(post.getId());
 
         assertThat(result).isNotNull();
         assertThat(post.getTitle()).isEqualTo("foo");
