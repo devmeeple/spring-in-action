@@ -99,3 +99,72 @@ implementation("org.springframework.boot:spring-boot-starter-validation")
 ### @Lob
 
 - 게시글의 본문의 길이는 가변적이다. 따라서 JPA에서 가변 길이 데이터 유형을 나타내는 `@Lob`를 사용한다.
+
+## 작성글 저장 2 - 클래스 분리
+
+- static import
+- Jackson
+- ObjectMapper
+
+### 객체를 생성하는 방법
+
+**생성자(Constructor)**
+
+```java
+public class User {
+    private String name;
+    private int age;
+    
+    public User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+```
+
+- 객체를 만들기 위한 가장 기본적이며 직관적인 방법
+- 동일 타입 파라미터가 여러 개 일 때 혼란을 야기함
+- 선택적 인자 처리 어려움
+- 의미 전달이 어려움
+
+**정적 팩토리 메서드(Static Factory Method)**
+
+```java
+public class User {
+    private String name;
+    private int age;
+
+    private User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public static User of(String name, int age) {
+        return new User(name, age);
+    }
+
+    public static User guest() {
+        return new User("Guest", 0);
+    }
+}
+```
+
+- 객체 생성 의도를 명확히 표현하고 싶을 때 사용
+
+**빌더 패턴(@Builder)**
+
+- 필드가 많거나 선택적 파라미터가 많은 객체 생성에 적합
+- 인자의 순서, `null` 처리, 기본값 문제를 해결하고 싶을 때 사용
+
+- 생성자, 정적 메서드, @Builder(디자인 패턴) 배경과 사용법
+  - @Builder의 장점: 가독성
+  - 유연한 값 생성
+  - 필요한 값만 받을 수 있음 -> 오버로딩 가능한 조건
+  - *객체의 불변성*
+
+### 참고 자료
+
+- [빌더 패턴(Builder Pattern)](https://johngrib.github.io/wiki/pattern/builder/)
+- [정적 팩토리 메서드(static factory method)](https://johngrib.github.io/wiki/pattern/static-factory-method/)
+- [Constructor vs Static Factory vs Builder Pattern: When and What to Use in Java](https://medium.com/@kariapratham/constructor-vs-static-factory-vs-builder-pattern-when-and-what-to-use-in-java-5f1ec79d3cc5)
+- [Constructor vs. Builder: Making the Right Choice for Your Project](https://www.dhiwise.com/blog/design-converter/constructor-vs-builder-making-the-right-choice-for-your-project)
