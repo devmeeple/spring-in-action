@@ -102,9 +102,24 @@ implementation("org.springframework.boot:spring-boot-starter-validation")
 
 ## 작성글 저장 2 - 클래스 분리
 
-- static import
-- Jackson
-- ObjectMapper
+### Jackson
+
+- Jackson은 JVM 진영에서 가장 많이 사용하는 JSON 직렬화/역질렬화 라이브러리다.
+- 객체를 JSON(String)으로 바꾸거나, 반대로 JSON을 객체로 바꿔주는 역할이다.
+- Spring은 Jackson 라이브러리를 기본으로 사용하여 별도의 설정 없이 JSON으로 자동 처리한다.
+
+### ObjectMapper
+
+- ObjectMapper는 Jackson의 핵심 클래스다. 실질적인 변환을 수행한다.
+- Spring은 애플리케이션 실행 시 자동으로 하나의 ObjectMapper를 빈(bean)으로 등록하고 빈을 기반으로 HTTP 요청과 응답을 변환한다.
+  - 컨트롤러에서 `Post` 객체를 반환하면, Spring은 내부적으로 `ObjectMapper.writeValueAsString()`을 호출하여 JSON 문자열로 응답한다.
+
+### 참고 자료
+
+- [JSON](https://docs.spring.io/spring-boot/reference/features/json.html)
+- [Jackson](https://docs.spring.io/spring-framework/reference/web/webmvc-view/mvc-jackson.html)
+- [Introducing Jackson 3 support in Spring](https://spring.io/blog/2025/10/07/introducing-jackson-3-support-in-spring)
+
 
 ### 객체를 생성하는 방법
 
