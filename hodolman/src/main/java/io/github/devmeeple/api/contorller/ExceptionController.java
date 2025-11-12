@@ -1,6 +1,6 @@
-package io.github.devmeeple.contorller;
+package io.github.devmeeple.api.contorller;
 
-import io.github.devmeeple.response.ErrorResponse;
+import io.github.devmeeple.api.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

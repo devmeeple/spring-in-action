@@ -1,4 +1,4 @@
-package io.github.devmeeple.domain;
+package io.github.devmeeple.api.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -1,6 +1,6 @@
-package io.github.devmeeple.repository;
+package io.github.devmeeple.api.repository;
 
-import io.github.devmeeple.domain.Post;
+import io.github.devmeeple.api.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PostRepository extends JpaRepository<Post, Long> {

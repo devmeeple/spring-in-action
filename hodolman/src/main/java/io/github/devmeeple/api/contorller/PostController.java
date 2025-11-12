@@ -1,8 +1,8 @@
-package io.github.devmeeple.contorller;
+package io.github.devmeeple.api.contorller;
 
-import io.github.devmeeple.request.PostCreate;
-import io.github.devmeeple.response.PostResponse;
-import io.github.devmeeple.service.PostService;
+import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.response.PostResponse;
+import io.github.devmeeple.api.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

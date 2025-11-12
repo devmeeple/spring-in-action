@@ -1,9 +1,9 @@
-package io.github.devmeeple.service;
+package io.github.devmeeple.api.service;
 
-import io.github.devmeeple.domain.Post;
-import io.github.devmeeple.repository.PostRepository;
-import io.github.devmeeple.request.PostCreate;
-import io.github.devmeeple.response.PostResponse;
+import io.github.devmeeple.api.domain.Post;
+import io.github.devmeeple.api.repository.PostRepository;
+import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

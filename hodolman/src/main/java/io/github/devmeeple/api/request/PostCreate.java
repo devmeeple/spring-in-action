@@ -1,4 +1,4 @@
-package io.github.devmeeple.request;
+package io.github.devmeeple.api.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

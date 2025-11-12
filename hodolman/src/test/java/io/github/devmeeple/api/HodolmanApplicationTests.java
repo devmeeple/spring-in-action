@@ -1,4 +1,4 @@
-package io.github.devmeeple;
+package io.github.devmeeple.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

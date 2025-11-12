@@ -1,9 +1,9 @@
-package io.github.devmeeple.contorller;
+package io.github.devmeeple.api.contorller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.devmeeple.domain.Post;
-import io.github.devmeeple.repository.PostRepository;
-import io.github.devmeeple.request.PostCreate;
+import io.github.devmeeple.api.domain.Post;
+import io.github.devmeeple.api.repository.PostRepository;
+import io.github.devmeeple.api.request.PostCreate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package io.github.devmeeple.response;
+package io.github.devmeeple.api.response;
 
 import lombok.Builder;
 import lombok.Getter;
