@@ -18,12 +18,12 @@ class MainTest {
     @Autowired
     private ApplicationContext context;
 
-    @DisplayName("스트레오타입 애너테이션을 사용하여 등록한 Parrot 인스턴스")
+    @DisplayName("Parrot 인스턴스의 이름은 Kiki다.")
     @Test
     void testParrotWasAdded() {
         Parrot result = context.getBean(Parrot.class);
 
         assertThat(result).isNotNull();
-        assertThat(result.getName()).isNull();
+        assertThat(result.getName()).isEqualTo("Kiki");
     }
 }
