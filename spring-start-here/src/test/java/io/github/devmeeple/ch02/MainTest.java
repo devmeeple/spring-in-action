@@ -26,10 +26,10 @@ class MainTest {
         assertThat(result.getName()).isEqualTo("KoKo");
     }
 
-    @DisplayName("parrot2 인스턴스의 이름은 Miki다.")
+    @DisplayName("miki 인스턴스의 이름은 Miki다.")
     @Test
-    void testParrot2HasTheNameMiki() {
-        Parrot result = context.getBean("parrot2", Parrot.class);
+    void testParrotMikiHasTheNameMiki() {
+        Parrot result = context.getBean("miki", Parrot.class);
 
         assertThat(result.getName()).isEqualTo("Miki");
     }
