@@ -20,15 +20,23 @@ class MainTest {
     @Autowired
     private ApplicationContext context;
 
-    @DisplayName("스프링 컨텍스트에 등록한 Parrot 인스턴스를 확인한다.")
+    @DisplayName("스프링 컨텍스트에 등록한 Parrot 인스턴스 값 Koko를 확인한다.")
     @Test
     void testKokoIsInTheSpringContext() {
-        Parrot parrot = context.getBean(Parrot.class);
+        Parrot parrot = context.getBean("parrot1", Parrot.class);
 
         assertThat(parrot.getName()).isEqualTo("Koko");
     }
 
-    @DisplayName("스프링 컨텍스트에 등록한 Person 인스턴스를 확인한다.")
+    @DisplayName("스프링 컨텍스트에 등록한 Parrot 인스턴스 값 Miki를 확인한다.")
+    @Test
+    void testMikiIsInTheSpringContext() {
+        Parrot parrot = context.getBean("parrot2", Parrot.class);
+
+        assertThat(parrot.getName()).isEqualTo("Miki");
+    }
+
+    @DisplayName("스프링 컨텍스트에 등록한 Person 인스턴스 값을 확인한다.")
     @Test
     void testEllaIsInTheSpringContext() {
         Person person = context.getBean(Person.class);
@@ -36,12 +44,12 @@ class MainTest {
         assertThat(person.getName()).isEqualTo("Ella");
     }
 
-    @DisplayName("Person 인스턴스와 Parrot는 연결되어 있다.")
+    @DisplayName("Person 인스턴스는 Miki라는 값을 가진 Parrot과 연결되어 있다.")
     @Test
-    void testEllaOwnsKoko() {
+    void testEllaOwnMiki() {
         Person person = context.getBean(Person.class);
 
-        assertThat(person.getParrot()).isNotNull();
-        assertThat(person.getParrot().getName()).isEqualTo("Koko");
+        assertThat(person.getName()).isNotNull();
+        assertThat(person.getParrot().getName()).isEqualTo("Miki");
     }
 }
