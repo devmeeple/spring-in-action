@@ -46,7 +46,7 @@ class MainTest {
 
     @DisplayName("Person 인스턴스는 Miki라는 값을 가진 Parrot과 연결되어 있다.")
     @Test
-    void testEllaOwnMiki() {
+    void testEllaOwnsMiki() {
         Person person = context.getBean(Person.class);
 
         assertThat(person.getName()).isNotNull();
