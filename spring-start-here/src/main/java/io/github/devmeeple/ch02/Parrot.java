@@ -1,17 +1,8 @@
 package io.github.devmeeple.ch02;
 
-import jakarta.annotation.PostConstruct;
-import org.springframework.stereotype.Component;
-
-@Component
 public class Parrot {
 
     private String name;
-
-    @PostConstruct
-    public void init() {
-        this.name = "Kiki";
-    }
 
     public String getName() {
         return name;
