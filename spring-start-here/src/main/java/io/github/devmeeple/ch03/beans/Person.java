@@ -1,10 +1,16 @@
 package io.github.devmeeple.ch03.beans;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Person {
 
-    private String name;
-    private Parrot parrot;
+    private String name = "Ella";
+    private final Parrot parrot;
 
+    public Person(Parrot parrot2) {
+        this.parrot = parrot2;
+    }
     public String getName() {
         return name;
     }
@@ -15,9 +21,5 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setParrot(Parrot parrot) {
-        this.parrot = parrot;
     }
 }
