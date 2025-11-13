@@ -36,11 +36,11 @@ class MainTest {
         assertThat(person.getName()).isEqualTo("Ella");
     }
 
-    @DisplayName("Person 인스턴스는 Parrot과 관계가 맺어지지 않았다.")
+    @DisplayName("Person 인스턴스와 Parrot는 연결되어 있다.")
     @Test
-    void testEllaDoesNotOwnKoko() {
+    void testEllaOwnsKok() {
         Person person = context.getBean(Person.class);
 
-        assertThat(person.getParrot()).isNull();
+        assertThat(person.getParrot()).isNotNull();
     }
 }
