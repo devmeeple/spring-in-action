@@ -18,27 +18,11 @@ class MainTest {
     @Autowired
     private ApplicationContext context;
 
-    @DisplayName("parrot1 인스턴스의 이름은 Koko다.")
+    @DisplayName("기본으로 설정한 빈, parrot2의 이름은 Miki다.")
     @Test
-    void testParrot1HasTheNameKoko() {
-        Parrot result = context.getBean("parrot1", Parrot.class);
-
-        assertThat(result.getName()).isEqualTo("KoKo");
-    }
-
-    @DisplayName("miki 인스턴스의 이름은 Miki다.")
-    @Test
-    void testParrotMikiHasTheNameMiki() {
-        Parrot result = context.getBean("miki", Parrot.class);
+    void testParrot2IsPrimary() {
+        Parrot result = context.getBean(Parrot.class);
 
         assertThat(result.getName()).isEqualTo("Miki");
-    }
-
-    @DisplayName("parrot3 인스턴스의 이름은 Riki다.")
-    @Test
-    void testParrot3HasTheNameRiki() {
-        Parrot result = context.getBean("parrot3", Parrot.class);
-
-        assertThat(result.getName()).isEqualTo("Riki");
     }
 }

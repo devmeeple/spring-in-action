@@ -3,6 +3,7 @@ package io.github.devmeeple.ch02.config;
 import io.github.devmeeple.ch02.Parrot;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class ProjectConfig {
@@ -14,7 +15,8 @@ public class ProjectConfig {
         return parrot;
     }
 
-    @Bean(name = "miki")
+    @Primary
+    @Bean
     Parrot parrot2() {
         Parrot parrot = new Parrot();
         parrot.setName("Miki");
