@@ -203,3 +203,19 @@ public class User {
 ### DTO <-> Entity 변환
 
 - 명확한 정답이 없다. 요구사항에 따라 다르다. 변환을 담당하는 Mapper를 도입하면 좋지 않을까?
+
+## 게시글 조회 3 - 게시글 여러개 조회
+
+### 생성자 오버로딩(Constructor Overloading)
+
+- 이름은 같지만 매개변수의 개수나 타입이 다른 생성자를 여러 개 정의하는 것
+- 하나의 객체를 여러 방식으로 만들 수 있도록 지원한다.
+
+```java
+public PostResponse(Long id, String title) {} // (o)
+public PostResponse(Long id, String name) {} // (x) 시그니처(Signature)가 같음
+```
+
+> 시그니처(Signature)란 '메서드 이름 + 매개변수 타입/순서/개수'를 의미한다. 즉, 매개변수의 이름은 포함하지 않는다.
+
+- 생성자 오버로딩은 매개변수의 개수 또는 타입이 달라야 한다.
