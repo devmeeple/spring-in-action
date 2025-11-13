@@ -18,27 +18,27 @@ class MainTest {
     @Autowired
     private ApplicationContext context;
 
-    @DisplayName("스프링 컨텍스트에 Bean Parrot을 추가한다.")
+    @DisplayName("parrot1 인스턴스의 이름은 Koko다.")
     @Test
-    void testKokoIsInTheSpringContext() {
-        Parrot result = context.getBean(Parrot.class);
+    void testParrot1HasTheNameKoko() {
+        Parrot result = context.getBean("parrot1", Parrot.class);
 
         assertThat(result.getName()).isEqualTo("KoKo");
     }
 
-    @DisplayName("스프링 컨텍스트에 Bean 문자열 Hello를 추가한다.")
+    @DisplayName("parrot2 인스턴스의 이름은 Miki다.")
     @Test
-    void testHelloIsInTheSpringContext() {
-        String result = context.getBean(String.class);
+    void testParrot2HasTheNameMiki() {
+        Parrot result = context.getBean("parrot2", Parrot.class);
 
-        assertThat(result).isEqualTo("Hello");
+        assertThat(result.getName()).isEqualTo("Miki");
     }
 
-    @DisplayName("스프링 컨텍스트에 정수 값 10을 추가한다.")
+    @DisplayName("parrot3 인스턴스의 이름은 Riki다.")
     @Test
-    void test10IsInTheSpringContext() {
-        Integer result = context.getBean(Integer.class);
+    void testParrot3HasTheNameRiki() {
+        Parrot result = context.getBean("parrot3", Parrot.class);
 
-        assertThat(result).isEqualTo(10);
+        assertThat(result.getName()).isEqualTo("Riki");
     }
 }
