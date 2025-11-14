@@ -1,4 +1,11 @@
 spring:
+# 페이지네이션 설정
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+        default-page-size: 5
+
   h2:
     console:
       enabled: true
