@@ -3,14 +3,13 @@ package io.github.devmeeple.api.service;
 import io.github.devmeeple.api.domain.Post;
 import io.github.devmeeple.api.repository.PostRepository;
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostSearch;
 import io.github.devmeeple.api.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,22 +64,23 @@ class PostServiceTest {
         assertThat(postRepository.count()).isEqualTo(1L);
     }
 
-    @DisplayName("글 1페이지 조회")
+    @DisplayName("글 여러개 조회")
     @Test
     void test3() {
-        List<Post> requestPosts = IntStream.range(1, 31)
+        List<Post> requestPosts = IntStream.range(0, 20)
                 .mapToObj(i -> Post.builder()
-                        .title("호돌맨 제목 " + i)
-                        .content("반포자이 " + i)
+                        .title("foo" + i)
+                        .content("bar1" + i)
                         .build())
                 .collect(Collectors.toList());
         postRepository.saveAll(requestPosts);
-        PageRequest pageable = PageRequest.of(0, 5, Sort.by("id").descending());
+        PostSearch postSearch = PostSearch.builder()
+                .page(1)
+                .build();
 
-        List<PostResponse> results = postService.getList(pageable);
+        List<PostResponse> results = postService.getList(postSearch);
 
-        assertThat(results.size()).isEqualTo(5L);
-        assertThat(results.get(0).getTitle()).isEqualTo("호돌맨 제목 30");
-        assertThat(results.get(4).getTitle()).isEqualTo("호돌맨 제목 26");
+        assertThat(results.size()).isEqualTo(10L);
+        assertThat(results.get(0).getTitle()).isEqualTo("foo19");
     }
 }
