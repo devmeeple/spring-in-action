@@ -3,6 +3,7 @@ package io.github.devmeeple.ch04.services;
 import io.github.devmeeple.ch04.model.Comment;
 import io.github.devmeeple.ch04.proxies.CommentNotificationProxy;
 import io.github.devmeeple.ch04.repositories.CommentRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +14,7 @@ public class CommentService {
 
     public CommentService(
             CommentRepository commentRepository,
-            CommentNotificationProxy commentNotificationProxy) {
+            @Qualifier("PUSH") CommentNotificationProxy commentNotificationProxy) {
         this.commentRepository = commentRepository;
         this.commentNotificationProxy = commentNotificationProxy;
     }

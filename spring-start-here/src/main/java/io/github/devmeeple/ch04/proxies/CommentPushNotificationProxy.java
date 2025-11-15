@@ -1,10 +1,10 @@
 package io.github.devmeeple.ch04.proxies;
 
 import io.github.devmeeple.ch04.model.Comment;
-import org.springframework.context.annotation.Primary;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Primary
+@Qualifier("PUSH")
 @Component
 public class CommentPushNotificationProxy implements CommentNotificationProxy{
 
