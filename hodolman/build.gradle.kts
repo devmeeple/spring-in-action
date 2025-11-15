@@ -24,16 +24,29 @@ repositories {
     mavenCentral()
 }
 
+val queryDslVersion = "5.0.0"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // 데이터 검증
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
+    // JPA
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // 데이터베이스
     runtimeOnly("com.h2database:h2")
 
+    // QueryDSL + JPAAnnotationProcessor
+    implementation("com.querydsl:querydsl-jpa:${queryDslVersion}:jakarta")
+    annotationProcessor("com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
+    annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
+    testAnnotationProcessor("com.querydsl:querydsl-apt:${queryDslVersion}:jakarta")
+    testAnnotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
+    // Lombok
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
