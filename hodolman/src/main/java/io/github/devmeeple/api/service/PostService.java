@@ -3,10 +3,10 @@ package io.github.devmeeple.api.service;
 import io.github.devmeeple.api.domain.Post;
 import io.github.devmeeple.api.repository.PostRepository;
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostSearch;
 import io.github.devmeeple.api.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,8 +39,8 @@ public class PostService {
                 .build();
     }
 
-    public List<PostResponse> getList(Pageable pageable) {
-        return postRepository.findAll(pageable).stream()
+    public List<PostResponse> getList(PostSearch postSearch) {
+        return postRepository.getList(postSearch).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
     }

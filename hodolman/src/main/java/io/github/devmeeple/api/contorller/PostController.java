@@ -1,12 +1,12 @@
 package io.github.devmeeple.api.contorller;
 
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostSearch;
 import io.github.devmeeple.api.response.PostResponse;
 import io.github.devmeeple.api.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponse> getList(Pageable pageable) {
-        return postService.getList(pageable);
+    public List<PostResponse> getList(@ModelAttribute PostSearch postSearch) {
+        return postService.getList(postSearch);
     }
 }
