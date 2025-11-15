@@ -6,19 +6,29 @@ import io.github.devmeeple.ch04.repositories.CommentRepository;
 import io.github.devmeeple.ch04.services.CommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 class MainTest {
+
+    @Mock
+    private CommentRepository commentRepository;
+
+    @Mock
+    private CommentNotificationProxy commentNotificationProxy;
+
+    @InjectMocks
+    private CommentService commentService;
 
     @DisplayName("댓글을 작성하면 저장 및 알림 기능을 호출한다.")
     @Test
     void testCommentService() {
-        Comment comment = mock(Comment.class);
-        CommentRepository commentRepository = mock(CommentRepository.class);
-        CommentNotificationProxy commentNotificationProxy = mock(CommentNotificationProxy.class);
-        CommentService commentService = new CommentService(commentRepository, commentNotificationProxy);
+        Comment comment = new Comment();
 
         commentService.publishComment(comment);
 

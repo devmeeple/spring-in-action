@@ -3,7 +3,9 @@ package io.github.devmeeple.ch04.services;
 import io.github.devmeeple.ch04.model.Comment;
 import io.github.devmeeple.ch04.proxies.CommentNotificationProxy;
 import io.github.devmeeple.ch04.repositories.CommentRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CommentService {
 
     private final CommentRepository commentRepository;
