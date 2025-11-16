@@ -1,16 +1,24 @@
 package io.github.devmeeple.ch05.services;
 
-import io.github.devmeeple.ch05.repositories.CommentRepository;
+import io.github.devmeeple.ch05.model.Comment;
+import io.github.devmeeple.ch05.processors.CommentProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CommentService {
 
     @Autowired
-    private CommentRepository commentRepository;
+    private ApplicationContext context;
 
-    public CommentRepository getCommentRepository() {
-        return commentRepository;
+    public void sendComment(Comment comment) {
+        CommentProcessor processor = context.getBean(CommentProcessor.class);
+
+        processor.setComment(comment);
+        processor.processComment(comment);
+        processor.validateComment(comment);
+
+        comment = processor.getComment();
     }
 }
