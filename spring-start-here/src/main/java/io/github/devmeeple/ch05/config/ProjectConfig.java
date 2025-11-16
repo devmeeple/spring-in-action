@@ -1,14 +1,12 @@
 package io.github.devmeeple.ch05.config;
 
-import io.github.devmeeple.ch05.services.CommentService;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+@ComponentScan(basePackages = {
+        "io.github.devmeeple.ch05.services",
+        "io.github.devmeeple.ch05.repositories"
+})
 @Configuration
 public class ProjectConfig {
-
-    @Bean
-    public CommentService commentService() {
-        return new CommentService();
-    }
 }
