@@ -68,7 +68,7 @@
 ```java
 public class UserService {
     private MySqlRepository repository = new MySqlRepository();
-    
+
     public void addUser(User user) {
         repository.save(user);
     }
@@ -88,16 +88,16 @@ public interface UserRepository {
 }
 
 public class MySqlRepository implements UserRepository {
-    
+
 }
 
 public class UserService {
     private UserRepository repository;
-    
+
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
-    
+
     public void addUser(User user) {
         repository.save(user);
     }
@@ -131,3 +131,38 @@ public class UserService {
     - 명확한 역할 부여 및 가독성
     - 특화된 기능 제공
     - 선택적 스캔 및 AOP 적용의 용이함
+
+## 5. 스프링 컨텍스트: 빈의 스코프 및 수명 주기
+
+- 스프링 컨텍스트는 빈(Bean) 스코프를 통해 객체 인스턴스를 관리하는 방법을 정의한다. 
+    - 주요 스코프는 싱글톤(Singleton)과 프로토타입(Prototype)이다.
+
+### 빈 스코프(Bean Scopes)
+
+**싱글톤(Singleton)**
+
+- 스프링의 기본 스코프, 스프링 컨텍스트 내에서 하나의 유일한 객체 인스턴스만 생성하고 관리한다.
+- 컨텍스트 내에서 빈 이름을 사용하여 참조하는 모든 위치에서 동일한 인스턴스를 얻는다.
+- 여러 스레드가 동일한 인스턴스에 접근하기 때문에, 불변(immutable)하게 만들기를 권장한다.
+    - 주로 생성자 주입을 통해 만든다.
+- 변경 가능한 속성이 필요할 때, 개발자가 직접 스레드 동기화를 처리해야 경쟁 상태(Race Condition)를 방지할 수 있다.
+- 스프링 싱글톤은 스프링 컨테이너 내에서만 싱글톤임을 보장한다.
+
+**프로토타입(Prototype)**
+
+- 빈을 참조할 때마다 해당 타입의 새로운 객체 인스턴스를 생성하는 스코프다.
+- 스프링은 객체 타입에만 집중하고, 요청이 들어올 때마다 새로운 인스턴스를 만든다.
+- 주로 변경 가능하고, 각 사용 시점마다 고유한 인스턴스가 필요한 경우에만 사용한다.
+- 프로토타입 빈을 싱글톤 빈에 주입할 경우, 싱글톤 빈이 생성되는 시점에 단 한 번만 프로토타입 인스턴스가 생성되어 주입된다. 이후 싱글톤 빈을 사용할 때마다 새로운 프로토타입 인스턴스를 얻지 못한다.
+
+### 빈 인스턴스 생성 시점
+
+**즉시 인스턴스 생성(Eager Initialization)**
+
+- 스프링의 기본 동작 방식, 스프링 컨텍스트가 만들어질 때 즉시 빈 인스턴스를 생성한다.
+
+**지연 인스턴스 생성(Lazy Initialization)**
+
+- 빈이 실제로 참조되는 시점에 인스턴스를 생성한다.
+- 성능 최적화를 위해 사용할 수 있지만, 애플리케이션 설계의 잠재적 문제가 있다는 신호일 수 있다.
+    - 근본적인 원인을 해결되지 않고 `@Lazy`를 사용하여 문제가 덮어지는 상황을 의미
