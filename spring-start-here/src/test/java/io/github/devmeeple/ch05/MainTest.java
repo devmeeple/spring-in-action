@@ -19,12 +19,12 @@ class MainTest {
     @Autowired
     private ApplicationContext context;
 
-    @DisplayName("CommentService 빈 조회 시 항상 같은 인스턴스를 반환한다.")
+    @DisplayName("프로토타입 스코프는 CommentService 빈 조회 시 새로운 인스턴스를 반환한다.")
     @Test
-    void testCommentServiceIsSingleton() {
+    void testCommentServiceIsPrototype() {
         CommentService result1 = context.getBean("commentService", CommentService.class);
         CommentService result2 = context.getBean("commentService", CommentService.class);
 
-        assertThat(result1).isSameAs(result2);
+        assertThat(result1).isNotSameAs(result2);
     }
 }
