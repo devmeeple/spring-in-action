@@ -313,3 +313,40 @@ public class PostSearch {
 - 객체의 필드가 기본값(Default Value)을 가지고 있을 때 `@Builder.Default`를 함께 사용한다.
 - `@Builder`를 클래스 레벨로 사용해야 한다.
 - [Using Lombok's @Builder Annotation](https://www.baeldung.com/lombok-builder)
+
+## 게시글 수정
+
+### 클래스를 분리하는 이유
+
+- 필드가 동일해도 역할(Responsibility)이 다르기 때문에 분리해야 한다.
+- 초기에는 비슷해 보여도 요구되는 필드가 시간이 지나면 달라진다.
+- 클라이언트 요청의 의도를 명확하게 표현한다.
+
+### Setter를 지양하는 이유
+
+- `Setter`는 객체의 상태를 누구나 아무 때나 변경할 수 있게 만든다. 남용하면 객체의 제약 조건이 깨지기 쉽다.
+
+**Tell, Don't Ask**
+
+- Getter/Setter는 객체에게 데이터를 요청하거나 설정하도록 지시하는 방식이다. 추가로 구현하는 메서드는 객체에게 무엇을 할 지 명령하고, 객체 스스로 비즈니스 로직에 따라 상태를 변경하게 한다.
+
+### @Transactional 사용시 save를 생략해도 되는 이유
+
+```java
+@Transacntional
+public void edit(Long id, PostEdit postEdit) {
+    Post post = postRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+    post.change(postEdit.getTitle(), postEdit.getContent());
+
+//    postRepository.save(post);
+    }
+```
+
+- JPA 영속성 컨텍스트(Persistence Context)와 Dirty Checking(변경 감지)와 관련있다.
+- 메서드에 `@Transactional`를 사용하면 트랜잭션을 시작한다.
+- `postRepository.findById(id)`를 호출하는 순간, 데이터베이스에서 가져온 엔티티는 JPA의 영속성 컨텍스트에 관리 상태(Managed State)가 된다.
+- 영속성 컨텍스트는 엔티티를 처음 조회한 시점의 상태(원본)를 스냅샷으로 따로 저장한다.
+- `@Transactional` 메서드가 종료되면, 트랜잭션이 커밋되기 직전에 JPA는 영속성 컨텍스트에 있는 관리 상태의 엔티티와 스냅샷을 비교한다.
+- 차이(Dirty)가 발견되면 JPA는 자동으로 Update 쿼리를 생성하고 데이터베이스에 변경 사항을 반영한다.
+- `save`를 따로 호출하지 않아도 트랜잭션 종료시점에 변경된 엔티티를 자동으로 데이터베이스에 반영하기 때문에 호출을 생략할 수 있다.
