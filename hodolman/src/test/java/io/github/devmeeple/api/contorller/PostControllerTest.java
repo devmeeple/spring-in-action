@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.devmeeple.api.domain.Post;
 import io.github.devmeeple.api.repository.PostRepository;
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostEdit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,8 +19,7 @@ import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -159,6 +159,27 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.length()").value(10))
                 .andExpect(jsonPath("$.[0].title").value("foo19"))
                 .andExpect(jsonPath("$.[0].content").value("bar19"))
+                .andDo(print());
+    }
+
+    @DisplayName("글 제목 수정")
+    @Test
+    void test7() throws Exception {
+        Post post = Post.builder()
+                .title("호돌맨")
+                .content("반포자이")
+                .build();
+        postRepository.save(post);
+        PostEdit postEdit = PostEdit.builder()
+                .title("호돌걸")
+                .content("반포자이")
+                .build();
+
+        mockMvc.perform(patch("/posts/{postId}", post.getId())
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(postEdit))
+                )
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 }

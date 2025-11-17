@@ -1,13 +1,15 @@
 package io.github.devmeeple.api.service;
 
 import io.github.devmeeple.api.domain.Post;
+import io.github.devmeeple.api.domain.PostEditor;
 import io.github.devmeeple.api.repository.PostRepository;
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostEdit;
 import io.github.devmeeple.api.request.PostSearch;
 import io.github.devmeeple.api.response.PostResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,5 +45,19 @@ public class PostService {
         return postRepository.getList(postSearch).stream()
                 .map(PostResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void edit(Long id, PostEdit postEdit) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+
+        PostEditor.PostEditorBuilder editor = post.toEditor();
+
+        PostEditor postEditor = editor.title(postEdit.getTitle())
+                .content(postEdit.getContent())
+                .build();
+
+        post.edit(postEditor);
     }
 }

@@ -1,6 +1,7 @@
 package io.github.devmeeple.api.contorller;
 
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostEdit;
 import io.github.devmeeple.api.request.PostSearch;
 import io.github.devmeeple.api.response.PostResponse;
 import io.github.devmeeple.api.service.PostService;
@@ -31,5 +32,10 @@ public class PostController {
     @GetMapping("/posts")
     public List<PostResponse> getList(@ModelAttribute PostSearch postSearch) {
         return postService.getList(postSearch);
+    }
+
+    @PatchMapping("/posts/{postId}")
+    public void edit(@PathVariable Long postId, @RequestBody @Valid PostEdit request) {
+        postService.edit(postId, request);
     }
 }

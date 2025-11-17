@@ -3,6 +3,7 @@ package io.github.devmeeple.api.service;
 import io.github.devmeeple.api.domain.Post;
 import io.github.devmeeple.api.repository.PostRepository;
 import io.github.devmeeple.api.request.PostCreate;
+import io.github.devmeeple.api.request.PostEdit;
 import io.github.devmeeple.api.request.PostSearch;
 import io.github.devmeeple.api.response.PostResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -82,5 +83,45 @@ class PostServiceTest {
 
         assertThat(results.size()).isEqualTo(10L);
         assertThat(results.get(0).getTitle()).isEqualTo("foo19");
+    }
+
+    @DisplayName("글 제목 수정")
+    @Test
+    void test4() {
+        Post post = Post.builder()
+                .title("호돌맨")
+                .content("반포자이")
+                .build();
+        postRepository.save(post);
+        PostEdit postEdit = PostEdit.builder()
+                .title("호돌걸")
+                .content("반포자이")
+                .build();
+
+        postService.edit(post.getId(), postEdit);
+
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+        assertThat(changedPost.getTitle()).isEqualTo("호돌걸");
+    }
+
+    @DisplayName("글 내용 수정")
+    @Test
+    void test5() {
+        Post post = Post.builder()
+                .title("호돌맨")
+                .content("반포자이")
+                .build();
+        postRepository.save(post);
+        PostEdit postEdit = PostEdit.builder()
+                .title("호돌맨")
+                .content("초가집")
+                .build();
+
+        postService.edit(post.getId(), postEdit);
+
+        Post changedPost = postRepository.findById(post.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + post.getId()));
+        assertThat(changedPost.getContent()).isEqualTo("초가집");
     }
 }
