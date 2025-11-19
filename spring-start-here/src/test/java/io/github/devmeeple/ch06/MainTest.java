@@ -14,7 +14,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.logging.Logger;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { ProjectConfig.class})
@@ -38,9 +39,9 @@ class MainTest {
         commentService.setLogger(serviceLogger);
     }
 
-    @DisplayName("Aspect를 사용하여 publishComment() 메서드 실행을 가로채지 않는다.")
+    @DisplayName("Aspect가 publishComment() 메서드 실행을 가로채고 변경한다.")
     @Test
-    void testAspectDoesntInterceptPublishCommentMethod() {
+    void testAspectInterceptsPublishCommentMethod() {
         Comment comment = new Comment();
         comment.setText("Test comment text");
         comment.setAuthor("Test comment author");
@@ -48,35 +49,6 @@ class MainTest {
         commentService.publishComment(comment);
 
         verify(serviceLogger).info("Publishing comment:" + comment.getText());
-        verify(aspectLogger, never()).info(anyString());
-        verify(aspectLogger, never()).info(anyString());
-    }
-
-    @DisplayName("Aspect를 사용하여 deleteComment() 메서드 실행을 가로채고 변경한다.")
-    @Test
-    void testAspectInterceptsDeleteCommentMethod() {
-        Comment comment = new Comment();
-        comment.setText("Test comment text");
-        comment.setAuthor("Test comment author");
-
-        commentService.deleteComment(comment);
-
-        verify(serviceLogger).info("Deleting comment:" + comment.getText());
-        verify(aspectLogger).info("Method deleteComment with parameters [Comment{text='Test comment text', author='Test comment author'}] will execute");
-        verify(aspectLogger).info("Method executed and returned null");
-    }
-
-    @DisplayName("Aspect를 사용하여 editComment() 메서드 실행을 가로채지 않는다.")
-    @Test
-    void testAspectDoesntInterceptEditCommentMethod() {
-        Comment comment = new Comment();
-        comment.setText("Test comment text");
-        comment.setAuthor("Test comment author");
-
-        commentService.editComment(comment);
-
-        verify(serviceLogger).info("Editing comment:" + comment.getText());
-        verify(aspectLogger, never()).info(anyString());
-        verify(aspectLogger, never()).info(anyString());
+        verify(aspectLogger).info("Method executed and returned SUCCESS");
     }
 }
