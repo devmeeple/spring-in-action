@@ -5,7 +5,11 @@ import io.github.devmeeple.ch06.model.Comment;
 import io.github.devmeeple.ch06.services.CommentService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.logging.Logger;
+
 public class Main {
+
+    private static Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ProjectConfig.class);
@@ -16,6 +20,8 @@ public class Main {
         comment.setText("Demo comment");
         comment.setAuthor("Natasha");
 
-        service.publishComment(comment);
+        String value = service.publishComment(comment);
+
+        logger.info(value);
     }
 }
