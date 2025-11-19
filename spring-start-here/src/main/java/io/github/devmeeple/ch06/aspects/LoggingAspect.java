@@ -3,9 +3,11 @@ package io.github.devmeeple.ch06.aspects;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.core.annotation.Order;
 
 import java.util.logging.Logger;
 
+@Order(2)
 @Aspect
 public class LoggingAspect {
 
