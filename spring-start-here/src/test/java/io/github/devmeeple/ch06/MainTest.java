@@ -1,6 +1,7 @@
 package io.github.devmeeple.ch06;
 
 import io.github.devmeeple.ch06.aspects.LoggingAspect;
+import io.github.devmeeple.ch06.aspects.SecurityAspect;
 import io.github.devmeeple.ch06.config.ProjectConfig;
 import io.github.devmeeple.ch06.model.Comment;
 import io.github.devmeeple.ch06.services.CommentService;
@@ -22,24 +23,31 @@ import static org.mockito.Mockito.verify;
 class MainTest {
 
     private Logger serviceLogger;
-    private Logger aspectLogger;
+    private Logger loggingAspectLogger;
+    private Logger securityAspectLogger;
 
     @Autowired
     private LoggingAspect loggingAspect;
+
+    @Autowired
+    private SecurityAspect securityAspect;
 
     @Autowired
     private CommentService commentService;
 
     @BeforeEach
     void setUp() {
-        this.aspectLogger = mock(Logger.class);
-        loggingAspect.setLogger(aspectLogger);
+        this.loggingAspectLogger = mock(Logger.class);
+        loggingAspect.setLogger(loggingAspectLogger);
+
+        this.securityAspectLogger = mock(Logger.class);
+        securityAspect.setLogger(securityAspectLogger);
 
         this.serviceLogger = mock(Logger.class);
         commentService.setLogger(serviceLogger);
     }
 
-    @DisplayName("Aspect가 publishComment() 메서드 실행을 가로채고 변경한다.")
+    @DisplayName("두 개의 Aspect(보안, 로깅)가 publishComment() 메서드 실행을 모두 가로챈다.")
     @Test
     void testAspectInterceptsPublishCommentMethod() {
         Comment comment = new Comment();
@@ -49,6 +57,7 @@ class MainTest {
         commentService.publishComment(comment);
 
         verify(serviceLogger).info("Publishing comment:" + comment.getText());
-        verify(aspectLogger).info("Method executed and returned SUCCESS");
+        verify(securityAspectLogger).info("Security Aspect: Calling the intercepted method");
+        verify(loggingAspectLogger).info("Logging Aspect: Calling the intercepted method");
     }
 }
