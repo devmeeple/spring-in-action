@@ -20,6 +20,11 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
+
+    // AOP(Aspect-Oriented Programming)
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+
+    // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
