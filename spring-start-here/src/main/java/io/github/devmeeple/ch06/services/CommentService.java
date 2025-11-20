@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
 
-@Service
+@Service("commentServiceCh06")
 public class CommentService {
 
     private Logger logger = Logger.getLogger(CommentService.class.getName());

@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
         "io.github.devmeeple.ch05.repositories",
         "io.github.devmeeple.ch05.processors"
 })
-@Configuration
+@Configuration("projectConfigCh05")
 public class ProjectConfig {
 }

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @ComponentScan(basePackages = "io.github.devmeeple.ch03.beans")
-@Configuration
+@Configuration("projectConfigCh03")
 public class ProjectConfig {
 
     @Bean

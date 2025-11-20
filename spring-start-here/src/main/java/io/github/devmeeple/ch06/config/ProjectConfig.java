@@ -9,7 +9,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @EnableAspectJAutoProxy
 @ComponentScan(basePackages = "io.github.devmeeple.ch06.services")
-@Configuration
+@Configuration("projectConfigCh06")
 public class ProjectConfig {
 
     @Bean

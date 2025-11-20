@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
                 "io.github.devmeeple.ch04.repositories"
         }
 )
-@Configuration
+@Configuration("projectConfigCh04")
 public class ProjectConfig {
 }

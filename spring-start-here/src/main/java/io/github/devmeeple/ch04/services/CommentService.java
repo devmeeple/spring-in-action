@@ -5,7 +5,7 @@ import io.github.devmeeple.ch04.proxies.CommentNotificationProxy;
 import io.github.devmeeple.ch04.repositories.CommentRepository;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("commentServiceCh04")
 public class CommentService {
 
     private final CommentRepository commentRepository;
