@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -29,13 +28,9 @@ public class ProductsController {
 
     @PostMapping("/ch08/products")
     public String addProduct(
-            @RequestParam String name,
-            @RequestParam double price,
+            Product p,
             Model model
     ) {
-        Product p = new Product();
-        p.setName(name);
-        p.setPrice(price);
         productService.addProduct(p);
 
         List<Product> products = productService.findAll();
