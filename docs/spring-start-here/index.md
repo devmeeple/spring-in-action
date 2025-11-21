@@ -271,3 +271,64 @@ public @interface ToLog {
   - 의존성 관리(Dependency Management): spring-boot-starter 사용
   - 배포(Deployment) 간소화: 실행 가능한 `jar` 안에 WAS가 포함되어 있어 `jar` 실행으로 간편하게 배포 가능
   - 자동 설정(Auto Configuration): 구성보다 관례(COC, Convention Over Configuration) 원칙을 적용하여 필요한 기능에 대한 기본 구성을 제공
+
+## 8. 스프링 부트와 스프링 MVC를 이용한 웹 앱 구현
+
+### 동적 페이지
+
+- 동적 페이지는 클라이언트 요청에 따라 다른 콘텐츠를 표시한다. 최근에는 정적 페이지보다 동적 페이지를 주로 사용한다.
+- 동적 페이지는 표시할 정보를 알기 위해 컨트롤러에서 변수 데이터를 가져온다.
+- 스프링은 템플릿 엔진(Template Engine)을 사용하여 쉽게 동적 페이지를 표현한다.
+- **템플릿 엔진**
+    - 타임리프(Thymeleaf)
+    - 머스태치(Mustache)
+    - 프리마커(Freemarker)
+    - 자바 서버 페이지(JSP)
+
+### HTTP 요청 데이터 처리 방식
+
+**요청 매개변수(Request Parameter)**
+
+```text
+/path?key1=value&key2=value2
+```
+
+- URL의 쿼리 문자열(Query String)또는 폼 데이터(Form Data)를 통해 `키=값` 형태로 데이터를 전송한다.
+- 검색어, 필터 조건, 페이지 번호 등 소량 데이터 처리에 적합하다.
+- 기본값은 필수(`required=true`)다. 필수가 아니라면 `@RequestParam(required=false)`로 설정한다.
+- 스프링은 `@RequestParam`을 사용하여 처리한다.
+
+**경로 변수(Path Variable)**
+
+```text
+/path/{variable}
+```
+
+- 데이터를 URL 경로의 일부처럼 구조화하여 전송한다. 특정 리소스(자원)를 식별하는데 주로 사용한다.
+- 필수로 식별하는 값에 적합하다.
+- 검색 엔진은 구조화된 경로를 안정적인 리소스로 판단한다. 따라서 색인화에 유리하다.
+- 스프링은 `@PathVariable`를 사용하여 처리한다.
+
+**요청 헤더(Request Header)**
+
+- 요청에 대한 부가 정보(인증 토큰, 사용자 환경 정보)를 전송, URI에 표시하지 않는다. 주로 시스템 정보 전송에 사용한다.
+
+**요청 본문(Request Body)**
+
+- JSON이나 XML 형태의 대량 데이터 전송에 사용한다. `@RequestBody`를 사용하여 처리한다.
+
+### Model
+
+- `Model` 객체는 Controller가 처리한 결과 데이터나 화면에 표시할 데이터를 담아 전송하는 통로 역할이다.
+
+### 데이터 바인딩: @ModelAttribute
+
+- 복잡한 요청 데이터를 객체로 자동 변환해 주는 기능이다.
+- 클라이언트가 전송한 HTTP 요청 파라미터의 값을 개발자가 정의한 객체(모델 클래스)의 필드에 자동으로 매칭하고 채워준다.
+- 스프링은 요청 파라미터 이름과 객체의 필드 이름이 일치하면 자동으로 값을 주입하여 객체의 인스턴스를 생성하고 메서드에 전달한다.
+- 스프링이 인스턴스를 만들 수 있도록 모델 클래스는 기본 생성자가 반드시 필요하다.
+- [@ModelAttribute](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/modelattrib-method-args.html)
+
+### HTTP 메서드의 목적과 활용
+
+- HTTP 메서드는 클라이언트가 서버에게 의도를 전달하는 동사다.
