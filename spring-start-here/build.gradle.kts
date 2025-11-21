@@ -27,6 +27,9 @@ dependencies {
     // Web MVC
     implementation("org.springframework.boot:spring-boot-starter-web")
 
+    // Template Engine - Thymelaf
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
