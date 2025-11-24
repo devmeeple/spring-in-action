@@ -8,11 +8,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -32,26 +29,10 @@ class CountryControllerTest {
         String result = mapper.writeValueAsString(country);
 
         mockMvc.perform(get("/ch10/france"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(result));
-    }
-
-    @Test
-    void testGetAllCountries() throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
-
-        Country country1 = new Country();
-        country1.setName("France");
-        country1.setPopulation(67);
-
-        Country country2 = new Country();
-        country2.setName("Spain");
-        country2.setPopulation(47);
-
-        String result = mapper.writeValueAsString(List.of(country1, country2));
-
-        mockMvc.perform(get("/ch10/all"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(result));
+                .andExpect(status().isAccepted())
+                .andExpect(content().json(result))
+                .andExpect(header().string("continent", "Europe"))
+                .andExpect(header().string("capital", "Paris"))
+                .andExpect(header().string("favorite_food", "cheese and wine"));
     }
 }
