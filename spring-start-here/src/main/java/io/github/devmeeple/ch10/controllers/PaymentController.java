@@ -1,7 +1,5 @@
 package io.github.devmeeple.ch10.controllers;
 
-import io.github.devmeeple.ch10.exceptions.NotEnoughMoneyException;
-import io.github.devmeeple.ch10.model.ErrorDetails;
 import io.github.devmeeple.ch10.model.PaymentDetails;
 import io.github.devmeeple.ch10.service.PaymentService;
 import org.springframework.http.HttpStatus;
@@ -19,18 +17,11 @@ public class PaymentController {
     }
 
     @PostMapping("/ch10/payment")
-    public ResponseEntity<?> makePayment() {
-        try {
-            PaymentDetails paymentDetails = paymentService.processPayment();
-            return ResponseEntity
-                    .status(HttpStatus.ACCEPTED)
-                    .body(paymentDetails);
-        } catch (NotEnoughMoneyException e) {
-            ErrorDetails errorDetails = new ErrorDetails();
-            errorDetails.setMessage("Not enough money to make the payment.");
-            return ResponseEntity
-                    .badRequest()
-                    .body(errorDetails);
-        }
+    public ResponseEntity<PaymentDetails> makePayment() {
+        PaymentDetails paymentDetails = paymentService.processPayment();
+
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(paymentDetails);
     }
 }
