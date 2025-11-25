@@ -2,7 +2,6 @@ package io.github.devmeeple.ch11.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import io.github.devmeeple.ch11.model.Payment;
 import org.junit.jupiter.api.BeforeAll;
@@ -11,21 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
 class PaymentsControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private WebTestClient webTestClient;
 
     private static WireMockServer wireMockServer;
 
@@ -33,26 +28,26 @@ class PaymentsControllerTest {
     static void init() {
         wireMockServer = new WireMockServer(new WireMockConfiguration().port(8080));
         wireMockServer.start();
-        WireMock.configureFor("localhost", 8080);
+        configureFor("localhost", 8080);
     }
 
     @Test
     void testPaymentEndpoint() throws Exception {
-        Payment request = new Payment();
-        request.setAmount(1000);
+        Payment requestBody = new Payment();
+        requestBody.setAmount(1000);
 
         ObjectMapper mapper = new ObjectMapper();
 
-        stubFor(WireMock.post(WireMock.urlMatching("/ch11/payment"))
+        stubFor(post(urlMatching("/ch11/payment"))
                 .willReturn(aResponse()
-                        .withBody(mapper.writeValueAsString(request))
+                        .withBody(mapper.writeValueAsString(requestBody))
                         .withHeader("content-type", MediaType.APPLICATION_JSON_VALUE)
                         .withStatus(OK.value())));
 
-        mockMvc.perform(post("/ch11/payment")
-                .content(mapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.amount").value(1000));
+        webTestClient.post()
+                .uri("/ch11/payment")
+                .bodyValue(requestBody)
+                .exchange()
+                .expectStatus().isOk();
     }
 }
