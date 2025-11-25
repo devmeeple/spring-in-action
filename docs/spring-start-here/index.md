@@ -398,3 +398,44 @@ private UserService userService;
 - `@MockBean`은 스프링 부트(Spring Boot) 3.4.0 버전부터 Deprecated 되었다.
 - 스프링 부트 프로젝트가 순수 스프링 프로젝트에서도 동일하게 Mockito Mock 객체를 컨텍스트에 등록하는 기능을 사용할 수 있도록 범용성을 확대했다.
 - `@MockitoBean`은 필드에 선언하면 해당 필드의 타입에 맞는 Mockito Mock 객체를 생성하고 테스트가 실행되는 스프링 컨텍스트 내의 기존 빈을 Mock 객체로 교체한다.
+
+## 11. REST 엔드포인트 사용
+
+```shell
+http POST :8080/ch11/payment requestId:ABC123 amount:=1000
+```
+
+- HTTPie 사용 예시
+
+### REST API 호출 방법
+
+- OpenFeign
+- RestTemplate
+- WebClient
+
+### RestTemplate
+
+- 초기 스프링에서 가장 널리 사용한 REST 클라이언트다.
+- 기본 통신방법은 동기(Synchronous) 방식이다.
+- 현재는 유지보수 중이며 OpenFeign을 권장한다.
+    - 공식문서에서는 WebClient 사용을 권장한다.
+
+### WebClient
+
+- 스프링 5부터 도입한 비동기(Non-blocking) 통신을 지원하는 REST 클라이언트다.
+
+### OpenFeign
+
+- 선언적(Declarative) REST 클라이언트다.
+- 사용자가 호출할 API를 인터페이스(Interface) 형태로 정의하면 런타임에 인터페이스를 구현, API 호출을 처리한다.
+- 주로 마이크로서비스 아키텍처(MSA) 환경에서 서비스 간 통신을 간단하게 구현할 때 유용하다.
+
+### WireMock
+
+```groovy
+implementation 'org.wiremock.integrations:wiremock-spring-boot:3.10.0'
+```
+
+- WireMock이란 외부 HTTP 서버에 의존하는 테스트 사례에 적합한 라이브러리다.
+- 테스트에 사용하는 목(Mock) HTTP 서버와 Mock API를 만들어준다.
+- REST 클라이언트가 외부 서버와 통신하는 로직 자체를 신뢰할 수 있고 예측 가능한 환경에서 접근할 수 있도록 돕는 테스트 도구다.
