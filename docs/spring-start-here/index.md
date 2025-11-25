@@ -360,3 +360,41 @@ public @interface ToLog {
 - 사용을 권장하지 않는다. 
  - 인스턴스에 상태를 저장하면 모든 사용자가 데이터를 공유하게 되어 요청의 독립성을 해친다.
  - 서버 전체에서 공유하는 데이터라면 데이터베이스나 캐시(Redis)등의 영속성 계층을 사용하면 된다.
+
+## 10. REST 서비스 구현
+
+### REST 서비스
+
+- REST(Representational State Transfer)는 현대 웹 서비스 개발에 가장 널리 사용되는 아키텍처 스타일이다.
+- REST 서비스는 웹 기본 프로토콜 HTTP의 장점을 최대 활용하는 아키텍처 스타일을 따른다. 
+- 자원을 URI(Uniform Resource Identifier)로 식별하고 조작을 HTTP Method(GET, POST, PUT, DELETE 등)를 통해 수행한다.
+- HTTP 표준을 따르므로 별도의 복잡한 프로토콜 없이 웹 브라우저, 모바일 웹, 다양한 서버 기술 등 어디서든 쉽게 접근, 사용할 수 있다.
+- Stateless(무상태) 원칙을 따른다. 서버는 클라이언트의 상태를 저장하지 않아, 요청을 처리하는 서버를 쉽게 늘릴 수 있어 서비스 확장에 유리하다.
+
+### HTTP 응답 처리
+
+- REST 서비스는 요청 처리 후 클라이언트에게 HTTP 응답을 반환한다. 응답은 응답 헤더, 응답 본문, HTTP 상태 코드(Status Code)로 구성한다.
+- `ResposeEntity`는 HTTP 응답 전체를 제어하는 클래스다. 특정 상태 코드를 명시해야 할 때, 또는 응답 헤더에 추가 정보를 담아야 할 때 사용한다.
+
+### 예외 처리: @ControllerAdvice
+
+- `@ControllerAdvice`는 애플리케이션 전역에서 발생하는 예외를 한 곳에서 처리할 수 있도록 스프링에서 지원하는 기능이다.
+- 전역 예외 처리(Global Exception Handling) 로직을 구현한다.
+- 각 컨트롤러 메서드마다 `try-catch`를 작성하는 대신, 모든 예외 처리를 모아 코드의 중복을 줄이고 유지보수를 용이하게 한다.
+- 예외가 발생했을 때 일관된 형태의 HTTP 상태 코드와 오류 메시지를 클라이언트에게 반환한다.
+
+### @MockitoBean
+
+```java
+// 기존
+//@MockBean
+//private UserService userService;
+
+// 대체
+@MockitoBean
+private UserService userService;
+```
+
+- `@MockBean`은 스프링 부트(Spring Boot) 3.4.0 버전부터 Deprecated 되었다.
+- 스프링 부트 프로젝트가 순수 스프링 프로젝트에서도 동일하게 Mockito Mock 객체를 컨텍스트에 등록하는 기능을 사용할 수 있도록 범용성을 확대했다.
+- `@MockitoBean`은 필드에 선언하면 해당 필드의 타입에 맞는 Mockito Mock 객체를 생성하고 테스트가 실행되는 스프링 컨텍스트 내의 기존 빈을 Mock 객체로 교체한다.
