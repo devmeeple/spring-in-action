@@ -36,6 +36,10 @@ dependencies {
     // WireMock
     implementation("org.wiremock.integrations:wiremock-spring-boot:3.10.0")
 
+    // WebFlux
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    testImplementation("io.projectreactor:reactor-test")
+
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
