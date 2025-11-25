@@ -1,3 +1,5 @@
+val springCloudVersion by extra("2025.0.0")
+
 plugins {
     java
     id("org.springframework.boot") version "3.5.7"
@@ -29,10 +31,17 @@ dependencies {
 
     // Template Engine - Thymelaf
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
 
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+dependencyManagement {
+    imports {
+        // Spring Cloud Open Feign
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion")
+    }
 }
 
 tasks.withType<Test> {
