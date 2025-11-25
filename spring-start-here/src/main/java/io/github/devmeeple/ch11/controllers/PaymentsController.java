@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController("paymentsControllerCh11")
 public class PaymentsController {
 
@@ -19,8 +17,6 @@ public class PaymentsController {
 
     @PostMapping("/ch11/payment")
     public Payment createPayment(@RequestBody Payment payment) {
-        String requestId = UUID.randomUUID().toString();
-
-        return paymentsProxy.createPayment(requestId, payment);
+        return paymentsProxy.createPayment(payment);
     }
 }

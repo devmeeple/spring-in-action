@@ -1,17 +1,44 @@
 package io.github.devmeeple.ch11.proxy;
 
 import io.github.devmeeple.ch11.model.Payment;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
-@FeignClient(name = "payments", url = "${name.service.url}")
-public interface PaymentsProxy {
+import java.util.UUID;
 
-    @PostMapping("/ch11/payment")
-    Payment createPayment(
-            @RequestHeader String requestId,
-            @RequestBody Payment payment
-    );
+@Component
+public class PaymentsProxy {
+
+    private final RestTemplate rest;
+
+    @Value("${name.service.url}")
+    private String paymentServiceUrl;
+
+    public PaymentsProxy(RestTemplate rest) {
+        this.rest = rest;
+    }
+
+    public Payment createPayment(Payment payment) {
+        String uri = paymentServiceUrl + "/ch11/payment";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("requestId", UUID.randomUUID().toString());
+
+        HttpEntity<Payment> httpEntity = new HttpEntity<>(payment, headers);
+
+        ResponseEntity<Payment> response =
+                rest.exchange(
+                        uri,
+                        HttpMethod.POST,
+                        httpEntity,
+                        Payment.class
+                );
+
+        return response.getBody();
+    }
 }
