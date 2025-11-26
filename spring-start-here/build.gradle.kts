@@ -49,6 +49,9 @@ dependencies {
     // MySQL
     runtimeOnly("com.mysql:mysql-connector-j")
 
+    // Docker Compose Support
+    runtimeOnly("org.springframework.boot:spring-boot-docker-compose")
+
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
