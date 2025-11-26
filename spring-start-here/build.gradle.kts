@@ -46,6 +46,9 @@ dependencies {
     // H2
     runtimeOnly("com.h2database:h2")
 
+    // MySQL
+    runtimeOnly("com.mysql:mysql-connector-j")
+
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
