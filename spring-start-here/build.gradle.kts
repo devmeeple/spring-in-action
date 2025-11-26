@@ -41,7 +41,7 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
 
     // Jdbc
-    implementation("org.springframework.session:spring-session-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 
     // H2
     runtimeOnly("com.h2database:h2")
@@ -50,6 +50,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
+
 dependencyManagement {
     imports {
         // Spring Cloud Open Feign
