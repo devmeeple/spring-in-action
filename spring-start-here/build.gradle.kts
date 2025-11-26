@@ -40,6 +40,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     testImplementation("io.projectreactor:reactor-test")
 
+    // Jdbc
+    implementation("org.springframework.session:spring-session-jdbc")
+
+    // H2
+    runtimeOnly("com.h2database:h2")
+
     // 테스트
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
