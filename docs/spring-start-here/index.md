@@ -439,3 +439,69 @@ implementation 'org.wiremock.integrations:wiremock-spring-boot:3.10.0'
 - WireMock이란 외부 HTTP 서버에 의존하는 테스트 사례에 적합한 라이브러리다.
 - 테스트에 사용하는 목(Mock) HTTP 서버와 Mock API를 만들어준다.
 - REST 클라이언트가 외부 서버와 통신하는 로직 자체를 신뢰할 수 있고 예측 가능한 환경에서 접근할 수 있도록 돕는 테스트 도구다.
+
+## 12. 스프링 앱에서 데이터 소스 사용
+
+### 스키마(Schema)
+
+```sql
+DROP TABLE IF EXISTS purchase CASCADE;
+
+CREATE TABLE IF NOT EXISTS purchase (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product VARCHAR(50) NOT NULL,
+    price DOUBLE NOT NULL
+)
+```
+
+- purchase 테이블은 구매 정보를 저장한다.
+- id: 기본 키(Primary Key)이며 자동으로 증가하는 정수형(AUTO_INCREMENT)다.
+- product: 구매한 상품명(VARCHAR)
+- price: 상품 가격(DOUBLE)
+
+### API 테스트 방법
+
+```shell
+# 구매
+http POST :8080/ch12/purchase product="Spring Security in Action" price:=25.2
+
+# 등록
+http :8080/ch12/purchase
+```
+
+### 데이터 소스와 커넥션 관리
+
+- 데이터 소스(Data Source)는 스프링이 데이터베이스에 접근하기 위한 필수 요소다. 
+- 데이터베이스 커넥션(Connection)을 관리하는 객체의 추상화다.
+
+**JDBC**
+
+- 자바는 JDBC(Java Database Connectivity)를 통해 특정 데이터베이스 기술에 종속되지 않고 일관된 방식으로 데이터베이스에 접근하는 추상화를 제공한다.
+
+**HikariCP**
+
+- 스프링 부트는 HikariCP는 기본적으로 고성능 커넥션 풀(Connection Pool) 구현체를 사용한다.
+- 커넥션 풀은 데이터베이스 커넥션을 미리 생성해 두고 필요할 때 재사용하여 애플리케이션 성능을 크게 향상한다.
+
+**설정 및 보안**
+
+- 데이터베이스 접속 정보는 애플리케이션 프로퍼티 파일에 작성하지 않는다. 보안을 위해 시크릿 볼트(Secret Vault)를 사용한다.
+
+- Docker Compose Support
+
+### 데이터베이스 의존성 관리
+
+- Flyway, Liquibase는 데이터베이스 마이그레이션(Migration) 도구다. 스크립트의 버전 관리를 지원한다.
+- 스키마 변경 사항을 추적하고, 환경 간 일관성을 유지하며, 배포 시 자동으로 스키마를 업데이트하는 데 사용한다.
+
+**데이터 소스를 직접 구성할 때**
+
+- 스프링 부트는 대부분 자동 구성을 지원한다.
+- 다중 데이터 소스(데이터베이스를 여러 개 사용), 세부 커넥션 풀 설정, 외부 환경 통합이 필요할 때는 데이터 소스를 직접 구성할 수 있다.
+
+### 스프링 부트와 Docker Compose
+
+- 개발자마다 로컬 환경의 데이터베이스를 구성하는 방식이 다르면 문제가 발생할 수 있다.
+- Docker Compose 파일을 공유하면 동일한 버전과 설정의 데이터 베이스 환경을 구성하기 쉽다.
+- [Docker Compose](https://docs.spring.io/spring-boot/how-to/docker-compose.html)
+- [Docker Compose Support in Spring Boot 3.1](https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1)
