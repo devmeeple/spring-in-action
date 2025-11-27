@@ -505,3 +505,53 @@ http :8080/ch12/purchase
 - Docker Compose 파일을 공유하면 동일한 버전과 설정의 데이터 베이스 환경을 구성하기 쉽다.
 - [Docker Compose](https://docs.spring.io/spring-boot/how-to/docker-compose.html)
 - [Docker Compose Support in Spring Boot 3.1](https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1)
+
+## 13. 스프링 앱에서 트랜잭션 사용
+
+- 트랜잭션이란? 왜 사용하는가? 스프링의 트랜잭션 사용 원리, 예시, 클래스, 메서드 사용, 주의
+
+### 스키마(Schema)
+
+```sql
+DROP TABLE IF EXISTS account CASCADE;
+
+CREATE TABLE account (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    amount DOUBLE NOT NULL
+);
+```
+
+- id: 기본 키(Primary Key)이며 자동으로 증가하는 정수형(AUTO_INCREMENT)다.
+- name: 계좌 소유자의 이름
+- amount: 소유자가 보유한 금액
+
+### API 테스트 방법
+
+```shell
+# 이체 전
+http :8080/ch13/accounts
+
+# 이체
+http POST :8080/ch13/transfer senderAccountId:=1 receiverAccountId:=2 amount:=100
+
+# 이체 후
+http :8080/ch13/accounts
+```
+
+### 트랜잭션(Transaction)
+
+- 트랜잭션이란 데이터베이스의 상태를 변화시키기 위해 수행하는 논리적인 작업의 최소 단위다.
+- 여러 데이터베이스 연산(SQL)을 하나의 묶음으로 처리하여 데이터의 무결성과 일관성을 보장하기 위해 사용한다.
+- 트랜잭션은 작업을 묶어 모두 성공(커밋)하거나, 모두 실패(롤백)하게 만든다.
+
+**스프링의 트랜잭션**
+
+- 스프링의 `@Transactional`은 AOP 애스팩트를 사용한다. 메서드 호출을 가로채고 호출에 트랜잭션 로직을 적용한다.
+- `@Transactional`은 클래스 레벨 또는 메서드 레벨에 적용할 수 있다.
+    - 클래스 레벨: 클래스 내의 모든 `public` 메서드에 적용
+    - 메서드 레벨: 클래스 레벨의 설정을 재정의 또는 특정 메서드에만 적용
+- 커밋(Commit): 메서드가 예외 없이 성공적으로 실행 완료하면 모든 변경사항을 데이터베이스에 저장한다.
+- 롤백(Rollback): 메서드 실행 중 언체크 예외(`RuntimeException` 및 하위 예외)가 발생하면 작업 시작 시점으로 상태를 복원한다.
+- 트랜잭션을 적용한 메서드 내에서 발생한 예외를 `try-catch`로 처리하고 다시 던지지 않으면, 스프링 AOP는 예외 발생을 추적할 수 없다.
+- 메서드가 정상 종료로 간주되어 롤백되지 않고 커밋된다. 롤백을 처리하려면 반드시 예외를 메서드 밖으로 던져야(`throw`) 한다.
