@@ -10,7 +10,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.math.BigDecimal;
 
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -22,7 +22,7 @@ class TransferServiceTest {
     @Autowired
     private TransferService transferService;
 
-    @DisplayName("계좌 이체에 성공하면 송금 계좌 잔액이 감소하고 수취 계좌 잔액이 증가한다.")
+    @DisplayName("계좌 이체 중 에러가 발생하면 트랜잭션을 롤백한다.")
     @Test
     void transferServiceTransferAmountTest() {
         Account sender = new Account();
@@ -36,9 +36,7 @@ class TransferServiceTest {
         when(accountRepository.findAccountById(1)).thenReturn(sender);
         when(accountRepository.findAccountById(2)).thenReturn(receiver);
 
-        transferService.transferMoney(1, 2, new BigDecimal(100));
-
-        verify(accountRepository).changeAmount(1, new BigDecimal(900));
-        verify(accountRepository).changeAmount(2, new BigDecimal(1100));
+        assertThatThrownBy(() -> transferService.transferMoney(1, 2, new BigDecimal(100)))
+                .isInstanceOf(RuntimeException.class);
     }
 }

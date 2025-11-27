@@ -27,6 +27,8 @@ public class TransferService {
 
         accountRepository.changeAmount(idSender, senderNewAmount);
         accountRepository.changeAmount(idReceiver, receiverNewAmount);
+
+        throw new RuntimeException("Oh no! Something went wrong!");
     }
 
     public List<Account> getAllAccounts() {
