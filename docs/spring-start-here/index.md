@@ -578,7 +578,7 @@ http :8080/ch14/accounts name=='John Read'
     - CRUD(Create, Read, Update, Delete)를 통해 데이터베이스와 상호작용
     - 비즈니스 로직과 데이터베이스 간의 데이터 변환
 
-### 스프링 데이터(Spring Ddata)
+### 스프링 데이터(Spring Data)
 
 - 데이터 접근 기술을 일관성 있고 편리하게 사용할 수 있도록 지원하는 추상화 계층
 - 반복적인 데이터 접근 코드(CRUD)를 줄이고 비즈니스 로직에 집중할 수 있도록 지원
