@@ -1,4 +1,4 @@
-package io.github.devmeeple.bootcamp.ch06;
+package io.github.devmeeple.bootcamp;
 
 class Demo {
 
