@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ProductController {
 
-    public ProductController() {
-        System.out.println("ProductController Bean 생성 - Spring IoC 컨테이너 동작 확인");
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getProduct() {
-        return "NoteBook";
+        return productService.getProduct();
     }
 }
