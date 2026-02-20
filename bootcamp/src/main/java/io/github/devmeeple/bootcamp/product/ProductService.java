@@ -1,4 +1,4 @@
-package io.github.devmeeple.bootcamp;
+package io.github.devmeeple.bootcamp.product;
 
 import org.springframework.stereotype.Service;
 
@@ -9,6 +9,10 @@ public class ProductService {
 
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
+    }
+
+    public void saveProduct() {
+        productRepository.saveProduct();
     }
 
     public String getProduct() {

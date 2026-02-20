@@ -1,4 +1,4 @@
-package io.github.devmeeple.bootcamp;
+package io.github.devmeeple.bootcamp.product;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    public void saveProduct() {
+        productService.saveProduct();
+    }
+
+    @RequestMapping(value = "/product", method = RequestMethod.GET)
     public String getProduct() {
         return productService.getProduct();
     }
