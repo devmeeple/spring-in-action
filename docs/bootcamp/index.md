@@ -36,7 +36,21 @@
 
 - 메타데이터 구조
     - Group: 기본 패키지 구조
-    - Artifact: 메인 패키지 
-    - Name: 프로젝트 
-    - Description: 프로젝트 소개 
+    - Artifact: 메인 패키지
+    - Name: 프로젝트
+    - Description: 프로젝트 소개
     - Package name: Group + Artifact
+
+## [4주차] 스프링 프로젝트 고도화
+
+### 10. 개발자라면 응당 테스트
+
+- 응당 테스트란 '개발자라면 응당하게(당연하게) 테스트를 해야 한다는 의미'다. 응답 테스트의 오타가 아니다.
+- 테스트
+    - 기능의 정상 동작
+    - 예외 상황에서의 올바른 응답
+    - HTTP 상태 코드
+    - 입력 검증
+- 브라우저는 `GET` 요청만 쉽게 보낼 수 있다. JSON Body 전송이 불편하다. API 도구를 사용하면 쉽게 테스트를 검증할 수 있다.
+- Spring은 보통 수동 API 테스트(Postman) -> 단위 테스트(JUnit + Mockito) -> 통합 테스트 단계를 통해 동작을 검증한다.
+- Postman 외에도 HTTPie, IntelliJ HTTP Client를 사용할 수 있다.
