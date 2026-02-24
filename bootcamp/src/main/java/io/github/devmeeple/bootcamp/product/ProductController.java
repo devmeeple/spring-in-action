@@ -3,6 +3,8 @@ package io.github.devmeeple.bootcamp.product;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @ResponseBody
 @Controller
 public class ProductController {
@@ -16,6 +18,11 @@ public class ProductController {
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public void saveProduct(@RequestBody Product product) {
         productService.saveProduct(product);
+    }
+
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public List<Product> getProduct() {
+        return productService.getProduct();
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)

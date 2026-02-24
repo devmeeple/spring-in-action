@@ -2,7 +2,9 @@ package io.github.devmeeple.bootcamp.product;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -13,6 +15,10 @@ public class ProductRepository {
 
     public void saveProduct(Product product) {
         database.put(id++, product);
+    }
+
+    public List<Product> getProduct() {
+        return new ArrayList<>(database.values());
     }
 
     public String getProductById(int id) {
