@@ -1,9 +1,7 @@
 package io.github.devmeeple.bootcamp.product;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @ResponseBody
 @Controller
@@ -15,13 +13,14 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public void saveProduct() {
-        productService.saveProduct();
+    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    public void saveProduct(@RequestBody Product product) {
+        productService.saveProduct(product);
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.GET)
-    public String getProduct() {
-        return productService.getProduct();
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+    public String getProductById(@PathVariable int id) {
+        System.out.println(id);
+        return productService.getProductById(id);
     }
 }

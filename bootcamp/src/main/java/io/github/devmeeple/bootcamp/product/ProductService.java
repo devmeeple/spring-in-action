@@ -11,11 +11,11 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public void saveProduct() {
-        productRepository.saveProduct();
+    public void saveProduct(Product product) {
+        productRepository.saveProduct(product);
     }
 
-    public String getProduct() {
-        return productRepository.getProduct();
+    public String getProductById(int id) {
+        return productRepository.getProductById(id);
     }
 }
