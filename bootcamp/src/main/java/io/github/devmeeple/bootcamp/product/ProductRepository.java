@@ -21,7 +21,7 @@ public class ProductRepository {
         return new ArrayList<>(database.values());
     }
 
-    public String getProductById(int id) {
-        return database.get(id).getName();
+    public Product getProductById(int id) {
+        return database.get(id);
     }
 }

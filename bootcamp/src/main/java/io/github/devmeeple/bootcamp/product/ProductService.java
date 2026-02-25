@@ -21,7 +21,7 @@ public class ProductService {
         return productRepository.getProduct();
     }
 
-    public String getProductById(int id) {
+    public Product getProductById(int id) {
         return productRepository.getProductById(id);
     }
 }

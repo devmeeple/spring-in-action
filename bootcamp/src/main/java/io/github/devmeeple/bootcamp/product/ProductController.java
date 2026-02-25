@@ -26,8 +26,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-    public String getProductById(@PathVariable int id) {
-        System.out.println(id);
+    public Product getProductById(@PathVariable int id) {
         return productService.getProductById(id);
     }
 }
