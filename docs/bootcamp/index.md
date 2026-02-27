@@ -35,11 +35,72 @@
 ### 4. 스프링 부트 프로젝트의 시작
 
 - 메타데이터 구조
-    - Group: 기본 패키지 구조
-    - Artifact: 메인 패키지
-    - Name: 프로젝트
-    - Description: 프로젝트 소개
-    - Package name: Group + Artifact
+  - Group: 기본 패키지 구조
+  - Artifact: 메인 패키지
+  - Name: 프로젝트
+  - Description: 프로젝트 소개
+  - Package name: Group + Artifact
+
+## [3주차] 상품 등록 기능으로 학습하는 도메인 주도 개발 & 패키지 구조
+
+### 14. 백엔드 개발자를 위한 면접 핵심 노트
+
+### 9. 상품 등록 기능으로 학습하는 도메인 주도 개발 & 패키지 구조
+
+- 도메인 주도 개발(DDD, Domain-Driven Design)이란 기술 중심이 아닌, **비즈니스(도메인) 중심으로 소프트웨어를 설계하는 방법이다.**
+- 도메인은 기술이 아닌, 해결하려는 현실 세계의 문제다.
+- 예시 1: 쿠팡(이커머스)
+  - 상품(Product)
+  - 주문(Order)
+  - 장바구니(Cart)
+  - 결제(Payment)
+  - 배송(Delivery)
+  - 회원(Member)
+- 예시 2: 넷플릭스
+  - 사용자(User)
+  - 콘텐츠(Content)
+  - 구독(Subscription)
+  - 시청 기록(WatchHistory)
+  - 추천(Recommendation)
+- 도메인은 단순 데이터 구조가 아닌 데이터가 지켜야할 비즈니스 규칙과 책임이 담겨있다.
+
+#### 9.1 일반적인 계층형 패키지 구조(Layered Architecture)
+
+```text
+com.example
+ ├── controller
+ ├── service
+ ├── repository
+ └── domain
+```
+
+- 간단한 프로젝트에서는 문제가 발생하지 않는다. 이해하기 쉽고 빠른 개발이 가능하다.
+- 하지만 기능이 커지면 코드가 흩어진다. 도메인 응집도가 낮아지고 `Service`가 비대해진다. 비즈니스 규칙이 `Service` 계층에 집중되면 도메인 객체는 단순 (Anemic Domain Model) 데이터구조로 전략하기 쉽다.
+
+#### 9.2 도메인 중심 패키지 구조
+
+```text
+com.example
+ ├── product
+ │    ├── ProductController
+ │    ├── ProductService
+ │    ├── ProductRepository
+ │    └── Product
+ │
+ ├── order
+ │    ├── OrderController
+ │    ├── OrderService
+ │    ├── OrderRepository
+ │    └── Order
+```
+
+- DDD는 기술 계층이 아닌, 도메인(기능) 기준으로 패키지를 묶는다. 도메인 응집도가 높고 테스트하기 쉬워진다.
+- 하지만 학습 비용이 높고 초기 설계 비용이 크다.
+  
+#### 마치며
+
+- 책에서는 DDD를 패키지 정리 방법으로 소개한다. 하지만 DDD는 단순한 구조 정리가 아닌 비즈니스 중심 설계 철학이다. Entity, Value Obeject, Aggregate, Ubiquitous Language와 같은 개념을 포함하며, 복잡한 도메인을 다룰 때 진가가 나타난다. 따라서 모든 프로젝트에 반드시 필요한 방법은 아니며, 규모와 복잡도에 따라 선택적으로 적용하는 것이 바람직하다.
+- 실무에서는 레이어드 아키텍처와 도메인 중심 패키지를 섞어 사용한다.
 
 ## [4주차] 스프링 프로젝트 고도화
 
@@ -47,10 +108,10 @@
 
 - 응당 테스트란 '개발자라면 응당하게(당연하게) 테스트를 해야 한다는 의미'다. 응답 테스트의 오타가 아니다.
 - 테스트
-    - 기능의 정상 동작
-    - 예외 상황에서의 올바른 응답
-    - HTTP 상태 코드
-    - 입력 검증
+  - 기능의 정상 동작
+  - 예외 상황에서의 올바른 응답
+  - HTTP 상태 코드
+  - 입력 검증
 - 브라우저는 `GET` 요청만 쉽게 보낼 수 있다. JSON Body 전송이 불편하다. API 도구를 사용하면 쉽게 테스트를 검증할 수 있다.
 - Spring은 보통 수동 API 테스트(Postman) -> 단위 테스트(JUnit + Mockito) -> 통합 테스트 단계를 통해 동작을 검증한다.
 - Postman 외에도 HTTPie, IntelliJ HTTP Client를 사용할 수 있다.
