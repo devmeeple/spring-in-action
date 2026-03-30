@@ -24,6 +24,8 @@ repositories {
     mavenCentral()
 }
 
+val p6spyVersion = "2.0.0"
+
 dependencies {
     // 웹 애플리케이션
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -36,6 +38,9 @@ dependencies {
     // 개발용 데이터베이스
     implementation("org.springframework.boot:spring-boot-h2console")
     runtimeOnly("com.h2database:h2")
+
+    // 쿼리 파라미터 로그 남기기
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:${p6spyVersion}")
 
     // 개발 편의
     compileOnly("org.projectlombok:lombok")
