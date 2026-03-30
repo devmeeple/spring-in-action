@@ -1,5 +1,6 @@
 package io.github.devmeeple.jpashop;
 
+import io.github.devmeeple.jpashop.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
