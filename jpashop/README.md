@@ -18,3 +18,73 @@
 - [H2 Database Engine](https://www.h2database.com/html/main.html)
 
 [^1]: [Spring Boot 4.0 Release Notes](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Release-Notes)
+
+## 2. 도메인 분석 설계
+
+### 엔티티 클래스 개발
+
+#### JPA Entity Annotation 작성 규칙
+
+> [!NOTE]
+> JPA Entity의 Annotation 순서는 관례가 없다. 하지만 프로젝트에서 일관되게 유지하면 가독성과 유지보수성을 높인다.
+
+```java
+@Entity
+@Table(name = "member")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member {
+
+    // === PK ===
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
+    private Long id;
+
+    // === 기본 필드 ===
+    @Column(nullable = false)
+    private String name;
+
+    // === 연관 관계 ===
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private Team team;
+}
+```
+
+- Annotation은 의미 순서 기준으로 작성한다.
+- Annotation은 한 줄에 하나씩 작성한다.
+- 클래스/필드/관계별로 블록을 나누어 작성한다.
+- Annotation은 한 줄에 하나만 작성한다
+
+**클래스 레벨 Annotation 순서**
+
+```text
+@Entity
+@Table(...)
+@Inheritance(...)
+@DiscriminatorColumn(...)
+@DiscriminatorValue(...)
+@Getter
+@Setter
+```
+
+- JPA 핵심 -> 상속/매핑 -> 보조(Lombok)
+- Lombok은 항상 마지막에 작성한다.
+
+**필드 Annotation 순서**
+
+PK 필드
+
+```text
+@Id
+@GeneratedValue(...)
+@Column(...)
+```
+
+연관 관계
+
+```text
+@ManyToOne(...)
+@JoinColumn(...)
+```
