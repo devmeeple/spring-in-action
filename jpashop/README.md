@@ -13,7 +13,7 @@
 2. 정상적으로 접속되면 `~/jpashop.mv.db` 파일이 생성된다.
 3. `jdbc:h2:tcp://localhost/~/jpashop`로 접속한다.
 
-### 참고 자료
+**참고 자료**
 
 - [H2 Database Engine](https://www.h2database.com/html/main.html)
 
@@ -88,3 +88,36 @@ PK 필드
 @ManyToOne(...)
 @JoinColumn(...)
 ```
+
+## 4. 회원 도메인 개발
+
+### 회원 리포지토리 개발
+
+#### JPQL 작성 권장 컨벤션
+
+> [!NOTE]
+> 공식적인 강제 규칙은 없다. 하지만 SQL과 동일한 방식을 따른다.
+
+- 키워드는 대문자를 사용한다. (`SELECT`, `FROM`, `WHERE`)
+- 엔티티명은 클래스 기준으로 작성한다.
+- 별칭은 짧은 소문자를 사용한다.
+- 필드는 엔티티 필드명을 사용한다.
+- Named Parameter를 사용한다. (`:name`)
+- JPQL은 SQL이 아니라 '객체 중심 쿼리'다.
+
+### 회원 기능 테스트
+
+#### 테스트 메서드 네이밍 규칙
+
+```text
+- givenMember_whenJoin_thenSuccess
+- givenDuplicateMember_whenJoin_thenThrowException
+```
+
+- given-when-then 패턴을 사용한다.
+- 형식: given[상황]_when[행동]_then[결과]
+- 테스트 이름만 보고도 의도를 파악할 수 있어야 한다.
+
+**참고 자료**
+
+- [Baeldung 'Best Practices for Unit Testing in Java'](https://www.baeldung.com/java-unit-testing-best-practices)
