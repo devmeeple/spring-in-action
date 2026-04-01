@@ -121,3 +121,34 @@ PK 필드
 **참고 자료**
 
 - [Baeldung 'Best Practices for Unit Testing in Java'](https://www.baeldung.com/java-unit-testing-best-practices)
+
+## 6. 주문 도메인 개발
+
+### 왜 Entity를 생성할 때 정적 팩토리 메서드를 사용했을까?
+
+> 정적 팩토리 메서드는 객체를 '만드는 코드'가 아니라 '올바른 상태를 보장하는 도메인 규칙'이다.
+
+```java
+//==생성 메서드==//
+public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+    Order order = new Order();
+    order.setMember(member);
+    order.setDelivery(delivery);
+    for (OrderItem orderItem : orderItems) {
+        order.addOrderItem(orderItem);
+    }
+    order.setStatus(OrderStatus.ORDER);
+    order.setOrderDate(LocalDateTime.now());
+    return order;
+}
+```
+
+- 객체를 생성하는 방법은 생성자, 정적 팩토리 메서드, 빌더 패턴이 있다.
+  - 생성자: 간단한 객체 생성에 적합하다.
+  - 정적 팩토리 메서드: 명명 가능, 복잡한 객체 생성에 적합하다.
+  - 빌더 패턴: 가독성 높고, 복잡한 객체 생성에 적합하다.
+- 정적 팩토리 메서드는 객체 생성 시 필수 값 누락을 방지한다.
+- 연관관계의 일관성을 보장한다.
+- 비즈니스 규칙을 생성 시점에 강제한다.
+- 생성 경로를 하나로 제한하여 유지보수성을 높인다.
+- 의미 있는 이름으로 가독성을 향상한다.
