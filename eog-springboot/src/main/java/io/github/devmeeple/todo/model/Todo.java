@@ -1,9 +1,9 @@
 package io.github.devmeeple.todo.model;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
@@ -12,8 +12,8 @@ public class Todo {
 
     private Long id;
 
-    @NotNull
+    @NonNull
     private String title;
     private String description;
-    private boolean completed;
+    private Boolean completed; // Spring Boot4 Jackson 3
 }
