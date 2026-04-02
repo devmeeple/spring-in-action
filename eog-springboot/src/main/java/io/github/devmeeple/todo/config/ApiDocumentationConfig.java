@@ -1,0 +1,21 @@
+package io.github.devmeeple.todo.config;
+
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ApiDocumentationConfig {
+
+    @Bean
+    public OpenAPI apiDocumentation() {
+        return new OpenAPI()
+                .info(
+                        new Info()
+                                .title("Todo List API")
+                                .version("1.0.0")
+                                .description("Spring Boot4를 이용한 TODO List API 문서")
+                );
+    }
+}
