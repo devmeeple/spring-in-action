@@ -41,6 +41,18 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+
+    // 테스트 실행 시 상세한 결과 출력 활성화
+    testLogging {
+        // 테스트 이벤트 중 어떤 것을 로그로 출력할지 설정
+        events("passed", "skipped", "failed")
+    }
+
+    // 테스트 케이스 별 결과를 항상 출력하도록 설정
+    outputs.upToDateWhen { false }
+
+    // Java Agent 경고 메시지 억제용 JVM 옵션
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
 }
 
 // Spotless 플러그인 설정
