@@ -28,12 +28,23 @@ dependencies {
     // Swagger UI(웹 서비스 명세), 대안: Spring REST Docs
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
+    // Spring Data JPA 스타터 의존성
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // MySQL JDBC 드라이버 의존성 추가, 버전을 생략하면 Spring Boot BOM이 CVE 없는 안전한 버전(현재 9.x)를 자동 지정
+    runtimeOnly("com.mysql:mysql-connector-j")
+
     // Lombok, 반복 코드 자동 생성 -> 컴파일 시 처리
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
 
     // Spring MVC 테스트 지원
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+
+    // Test Container, 임시 MySQL 컨테이너를 생성하여 유닛테스트를 수행하기 위함
+    testImplementation("org.testcontainers:testcontainers-junit-jupiter")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
+    testImplementation("org.testcontainers:testcontainers-mysql")
 
     // JUnit 테스트 실행 환경 제공
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
