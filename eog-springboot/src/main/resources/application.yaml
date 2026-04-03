@@ -1,3 +1,14 @@
 spring:
   application:
     name: eog-springboot
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/todo_db
+    username: todo_user
+    password: dev_password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # 개발 중 테이블 및 컬럼 구조가 자동으로 업데이트되도록 설정
+    show-sql: true # SQL 쿼리 출력
