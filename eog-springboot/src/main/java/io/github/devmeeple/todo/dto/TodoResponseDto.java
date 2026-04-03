@@ -1,4 +1,4 @@
-package io.github.devmeeple.todo.model;
+package io.github.devmeeple.todo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,12 +8,15 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Todo {
+public class TodoResponseDto {
 
+    @NonNull
     private Long id;
 
     @NonNull
     private String title;
+
     private String description;
-    private Boolean completed; // Spring Boot4 Jackson 3
+
+    private boolean completed;
 }
