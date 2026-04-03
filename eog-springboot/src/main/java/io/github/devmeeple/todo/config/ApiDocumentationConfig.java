@@ -13,9 +13,8 @@ public class ApiDocumentationConfig {
         return new OpenAPI()
                 .info(
                         new Info()
-                                .title("Todo List API")
-                                .version("1.0.0")
-                                .description("Spring Boot4를 이용한 TODO List API 문서")
-                );
+                                .title("TODO List API")
+                                .version("2.0")
+                                .description("Spring Boot4를 이용한 TODO List API 문서"));
     }
 }
