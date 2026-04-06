@@ -1,8 +1,8 @@
-package io.github.devmeeple.todo.controller;
+package io.github.devmeeple.minilog.controller;
 
-import io.github.devmeeple.todo.dto.TodoRequestDto;
-import io.github.devmeeple.todo.dto.TodoResponseDto;
-import io.github.devmeeple.todo.service.TodoService;
+import io.github.devmeeple.minilog.dto.TodoRequestDto;
+import io.github.devmeeple.minilog.dto.TodoResponseDto;
+import io.github.devmeeple.minilog.service.TodoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

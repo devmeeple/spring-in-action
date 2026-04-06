@@ -1,4 +1,4 @@
-package io.github.devmeeple.todo.dto;
+package io.github.devmeeple.minilog.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

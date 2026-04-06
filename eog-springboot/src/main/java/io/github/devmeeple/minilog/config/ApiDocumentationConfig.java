@@ -1,4 +1,4 @@
-package io.github.devmeeple.todo.config;
+package io.github.devmeeple.minilog.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

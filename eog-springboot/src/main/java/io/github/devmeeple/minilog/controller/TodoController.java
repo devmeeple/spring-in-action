@@ -1,8 +1,8 @@
-package io.github.devmeeple.todo.controller;
+package io.github.devmeeple.minilog.controller;
 
-import io.github.devmeeple.todo.dto.TodoRequestDto;
-import io.github.devmeeple.todo.dto.TodoResponseDto;
-import io.github.devmeeple.todo.service.TodoService;
+import io.github.devmeeple.minilog.dto.TodoRequestDto;
+import io.github.devmeeple.minilog.dto.TodoResponseDto;
+import io.github.devmeeple.minilog.service.TodoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

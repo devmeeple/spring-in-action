@@ -1,4 +1,4 @@
-package io.github.devmeeple.todo.entity;
+package io.github.devmeeple.minilog.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

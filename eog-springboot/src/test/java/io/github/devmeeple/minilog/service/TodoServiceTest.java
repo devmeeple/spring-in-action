@@ -1,8 +1,8 @@
-package io.github.devmeeple.todo.service;
+package io.github.devmeeple.minilog.service;
 
-import io.github.devmeeple.todo.dto.TodoRequestDto;
-import io.github.devmeeple.todo.dto.TodoResponseDto;
-import io.github.devmeeple.todo.repository.TodoRepository;
+import io.github.devmeeple.minilog.dto.TodoRequestDto;
+import io.github.devmeeple.minilog.dto.TodoResponseDto;
+import io.github.devmeeple.minilog.repository.TodoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

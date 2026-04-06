@@ -1,4 +1,4 @@
-package io.github.devmeeple.todo;
+package io.github.devmeeple.minilog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

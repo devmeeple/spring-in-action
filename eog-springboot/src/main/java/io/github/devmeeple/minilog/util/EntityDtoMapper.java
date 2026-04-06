@@ -1,8 +1,8 @@
-package io.github.devmeeple.todo.util;
+package io.github.devmeeple.minilog.util;
 
-import io.github.devmeeple.todo.dto.TodoRequestDto;
-import io.github.devmeeple.todo.dto.TodoResponseDto;
-import io.github.devmeeple.todo.entity.Todo;
+import io.github.devmeeple.minilog.dto.TodoRequestDto;
+import io.github.devmeeple.minilog.dto.TodoResponseDto;
+import io.github.devmeeple.minilog.entity.Todo;
 
 public class EntityDtoMapper {
 

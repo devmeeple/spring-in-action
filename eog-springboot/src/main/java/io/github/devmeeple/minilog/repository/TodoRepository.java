@@ -1,6 +1,6 @@
-package io.github.devmeeple.todo.repository;
+package io.github.devmeeple.minilog.repository;
 
-import io.github.devmeeple.todo.entity.Todo;
+import io.github.devmeeple.minilog.entity.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

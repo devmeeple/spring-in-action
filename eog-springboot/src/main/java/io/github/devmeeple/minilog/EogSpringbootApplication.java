@@ -1,4 +1,4 @@
-package io.github.devmeeple.todo;
+package io.github.devmeeple.minilog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
