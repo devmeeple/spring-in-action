@@ -1,1 +1,1 @@
-rootProject.name = "todo-mysql"
+rootProject.name = "minilog-jpa"
