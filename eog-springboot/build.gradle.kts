@@ -21,6 +21,8 @@ repositories {
     mavenCentral()
 }
 
+val jjwtVersion = "0.13.0"
+
 dependencies {
     // 웹 애플리케이션 개발에 필요한 기본적인 의존성
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
@@ -34,6 +36,14 @@ dependencies {
     // MySQL JDBC 드라이버 의존성 추가, 버전을 생략하면 Spring Boot BOM이 CVE 없는 안전한 버전(현재 9.x)를 자동 지정
     runtimeOnly("com.mysql:mysql-connector-j")
 
+    // Spring Security: 인증 및 인가 처리
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
+    // JWT: 토큰 생성 및 파싱(JJWT)
+    implementation("io.jsonwebtoken:jjwt-api:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:$jjwtVersion")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:$jjwtVersion")
+
     // Lombok, 반복 코드 자동 생성 -> 컴파일 시 처리
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
@@ -45,6 +55,9 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers-junit-jupiter")
     testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.testcontainers:testcontainers-mysql")
+
+    // Spring Security 테스트 지원
+    testImplementation("org.springframework.security:spring-security-test")
 
     // JUnit 테스트 실행 환경 제공
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
