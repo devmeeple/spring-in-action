@@ -1,0 +1,69 @@
+package io.github.devmeeple.minilog.controller;
+
+import io.github.devmeeple.minilog.dto.ArticleResponseDto;
+import io.github.devmeeple.minilog.service.ArticleService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@ExtendWith(SpringExtension.class)
+@WebMvcTest(FeedController.class)
+class FeedControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
+    private JpaMetamodelMappingContext jpaMetamodelMappingContext;
+
+    @MockitoBean
+    private ArticleService articleService;
+
+    LocalDateTime fixtureDateTime = LocalDateTime.of(2026, 1, 1, 0, 0, 0);
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+    String formattedFixtureDateTime = fixtureDateTime.format(formatter);
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testGetFeedList() throws Exception {
+        ArticleResponseDto articleResponseDto = ArticleResponseDto.builder()
+                .articleId(1L)
+                .content("Test Content")
+                .authorId(1L)
+                .authorName("Test User")
+                .createdAt(fixtureDateTime)
+                .build();
+        when(articleService.getFeedListByFollowerId(anyLong()))
+                .thenReturn(Collections.singletonList(articleResponseDto));
+
+        mockMvc.perform(get("/api/v1/feed?followerId=1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$[0].articleId").value(1L))
+                .andExpect(jsonPath("$[0].content").value("Test Content"))
+                .andExpect(jsonPath("$[0].authorId").value(1L))
+                .andExpect(jsonPath("$[0].authorName").value("Test User"))
+                .andExpect(jsonPath("$[0].createdAt").value(formattedFixtureDateTime));
+    }
+}
