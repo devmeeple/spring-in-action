@@ -1,1 +1,1 @@
-rootProject.name = "minilog-jpa"
+rootProject.name = "minilog-jpa-with-auth"
